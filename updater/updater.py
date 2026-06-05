@@ -14,7 +14,7 @@ from packaging import version
 
 
 # GitHub 仓库信息
-GITHUB_OWNER = "your-username"  # 替换为你的 GitHub 用户名
+GITHUB_OWNER = "laoshahah"
 GITHUB_REPO = "comment-collector"
 GITHUB_API_URL = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
 
