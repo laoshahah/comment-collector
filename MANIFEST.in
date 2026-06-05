@@ -1,0 +1,8 @@
+include requirements.txt
+include README.md
+include config.py
+recursive-include gui *.py
+recursive-include crawlers *.py
+recursive-include parsers *.py
+recursive-include storage *.py
+recursive-include utils *.py
