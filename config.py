@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 # 版本号（唯一定义处）
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent
