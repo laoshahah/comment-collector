@@ -18,8 +18,11 @@ GITHUB_OWNER = "laoshahah"
 GITHUB_REPO = "comment-collector"
 GITHUB_API_URL = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
 
-# 当前版本
-CURRENT_VERSION = "1.0.0"
+# 从 config 导入版本号
+try:
+    from config import __version__ as CURRENT_VERSION
+except ImportError:
+    CURRENT_VERSION = "1.0.0"
 
 
 class UpdateInfo:

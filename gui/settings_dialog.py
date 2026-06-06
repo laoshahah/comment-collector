@@ -4,10 +4,11 @@
 from PyQt6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox, QCheckBox, QComboBox,
-    QPushButton, QGroupBox, QFormLayout, QFileDialog
+    QPushButton, QGroupBox, QFormLayout, QFileDialog,
+    QMessageBox
 )
 from PyQt6.QtCore import Qt
-from config import CRAWLER_CONFIG, EXPORT_DIR
+from config import CRAWLER_CONFIG, EXPORT_DIR, save_settings, load_settings
 
 
 class SettingsDialog(QDialog):
@@ -94,6 +95,21 @@ class SettingsDialog(QDialog):
         CRAWLER_CONFIG["timeout"] = self.timeout_spin.value()
         CRAWLER_CONFIG["headless"] = self.headless_check.isChecked()
 
+        # 保存到文件
+        settings = {
+            "crawler": {
+                "min_delay": self.min_delay_spin.value(),
+                "max_delay": self.max_delay_spin.value(),
+                "timeout": self.timeout_spin.value(),
+                "headless": self.headless_check.isChecked(),
+            },
+            "export": {
+                "default_format": "excel",
+            }
+        }
+        save_settings(settings)
+
+        QMessageBox.information(self, "成功", "设置已保存！")
         self.accept()
 
     def browse_export_path(self):

@@ -2,10 +2,17 @@
 安装配置
 """
 from setuptools import setup, find_packages
+import re
+
+# 从 config.py 读取版本号
+with open("config.py", "r") as f:
+    content = f.read()
+    version_match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', content)
+    version = version_match.group(1) if version_match else "1.0.0"
 
 setup(
     name="comment-collector",
-    version="1.0.0",
+    version=version,
     description="跨平台评论采集与客户信息提取工具",
     author="Your Name",
     author_email="your@email.com",

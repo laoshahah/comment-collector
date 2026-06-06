@@ -5,7 +5,7 @@
 import sys
 import os
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import Qt
+from config import __version__
 from gui.main_window import MainWindow
 from utils.logger import logger
 
@@ -18,16 +18,13 @@ def main():
     # 创建应用
     app = QApplication(sys.argv)
     app.setApplicationName("评论采集工具")
-    app.setApplicationVersion("1.0.0")
-
-    # 设置高DPI支持
-    app.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling, True)
+    app.setApplicationVersion(__version__)
 
     # 创建主窗口
     try:
         window = MainWindow()
         window.show()
-        logger.info("应用启动成功")
+        logger.info(f"应用启动成功 v{__version__}")
         sys.exit(app.exec())
     except Exception as e:
         logger.error(f"应用启动失败: {e}")

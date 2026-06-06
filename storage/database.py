@@ -21,8 +21,11 @@ class Database:
     def init_db(self):
         """初始化数据库"""
         try:
-            self.conn = sqlite3.connect(str(self.db_path))
+            # check_same_thread=False 允许多线程访问
+            self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False)
             self.conn.row_factory = sqlite3.Row
+            # 启用 WAL 模式提高并发性能
+            self.conn.execute("PRAGMA journal_mode=WAL")
             self._create_tables()
             logger.info(f"数据库初始化完成: {self.db_path}")
         except Exception as e:
@@ -42,12 +45,44 @@ class Database:
                 phone TEXT,
                 wechat TEXT,
                 qq TEXT,
+                email TEXT,
                 intent TEXT DEFAULT '低',
                 time TEXT,
                 url TEXT,
                 likes INTEGER DEFAULT 0,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE(platform, author, content)
+            )
+        """)
+
+        # 检查是否需要添加 email 列（兼容旧数据库）
+        cursor.execute("PRAGMA table_info(comments)")
+        columns = [row[1] for row in cursor.fetchall()]
+        if 'email' not in columns:
+            try:
+                cursor.execute("ALTER TABLE comments ADD COLUMN email TEXT DEFAULT ''")
+                logger.info("已添加 email 列到数据库")
+            except Exception as e:
+                logger.debug(f"添加 email 列失败（可能已存在）: {e}")
+
+        # 搜索历史表
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS search_history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                keyword TEXT NOT NULL,
+                platforms TEXT,
+                search_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+        # 批量URL表
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS bulk_urls (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                url TEXT NOT NULL,
+                platform TEXT,
+                status TEXT DEFAULT 'pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
 
@@ -81,8 +116,8 @@ class Database:
             cursor = self.conn.cursor()
             cursor.execute("""
                 INSERT OR IGNORE INTO comments
-                (platform, title, content, author, phone, wechat, qq, intent, time, url, likes)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (platform, title, content, author, phone, wechat, qq, email, intent, time, url, likes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 comment.platform,
                 comment.title,
@@ -91,6 +126,7 @@ class Database:
                 comment.phone,
                 comment.wechat,
                 comment.qq,
+                comment.email,
                 comment.intent,
                 comment.time,
                 comment.url,
@@ -179,15 +215,29 @@ class Database:
         cursor.execute("SELECT intent, COUNT(*) FROM comments GROUP BY intent")
         intents = {row[0]: row[1] for row in cursor.fetchall()}
 
-        # 有联系方式的数量
-        cursor.execute("SELECT COUNT(*) FROM comments WHERE phone != '' OR wechat != '' OR qq != ''")
+        # 有联系方式的数量（包括邮箱）
+        cursor.execute("SELECT COUNT(*) FROM comments WHERE phone != '' OR wechat != '' OR qq != '' OR email != ''")
         with_contact = cursor.fetchone()[0]
+
+        # 各类型联系方式数量
+        cursor.execute("SELECT COUNT(*) FROM comments WHERE phone != ''")
+        with_phone = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM comments WHERE wechat != ''")
+        with_wechat = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM comments WHERE qq != ''")
+        with_qq = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM comments WHERE email != ''")
+        with_email = cursor.fetchone()[0]
 
         return {
             "total": total,
             "platforms": platforms,
             "intents": intents,
             "with_contact": with_contact,
+            "with_phone": with_phone,
+            "with_wechat": with_wechat,
+            "with_qq": with_qq,
+            "with_email": with_email,
         }
 
     def insert_task(self, keyword: str, platforms: str) -> int:
@@ -222,43 +272,147 @@ class Database:
 
     def insert_comments_batch(self, comments: List[dict]) -> int:
         """
-        批量插入评论（字典格式）
+        批量插入评论（字典格式）- 使用事务和 executemany 优化
         Returns:
             成功插入的数量
         """
-        count = 0
-        for comment_data in comments:
-            try:
-                cursor = self.conn.cursor()
-                cursor.execute("""
-                    INSERT OR IGNORE INTO comments
-                    (platform, title, content, author, phone, wechat, qq, intent, time, url, likes)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    comment_data.get("platform", ""),
-                    comment_data.get("title", ""),
-                    comment_data.get("content", ""),
-                    comment_data.get("author", ""),
-                    comment_data.get("phone", ""),
-                    comment_data.get("wechat", ""),
-                    comment_data.get("qq", ""),
-                    comment_data.get("intent", "低"),
-                    comment_data.get("time", ""),
-                    comment_data.get("url", ""),
-                    comment_data.get("likes", 0),
-                ))
-                if cursor.rowcount > 0:
-                    count += 1
-            except Exception as e:
-                logger.debug(f"插入评论失败: {e}")
-                continue
+        if not comments:
+            return 0
 
-        self.conn.commit()
-        logger.info(f"批量插入评论: {count}/{len(comments)} 条")
-        return count
+        # 准备数据
+        data = [
+            (
+                c.get("platform", ""),
+                c.get("title", ""),
+                c.get("content", ""),
+                c.get("author", ""),
+                c.get("phone", ""),
+                c.get("wechat", ""),
+                c.get("qq", ""),
+                c.get("email", ""),
+                c.get("intent", "低"),
+                c.get("time", ""),
+                c.get("url", ""),
+                c.get("likes", 0),
+            )
+            for c in comments
+        ]
+
+        try:
+            cursor = self.conn.cursor()
+            # 使用事务批量插入
+            cursor.execute("BEGIN TRANSACTION")
+            cursor.executemany("""
+                INSERT OR IGNORE INTO comments
+                (platform, title, content, author, phone, wechat, qq, email, intent, time, url, likes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, data)
+            count = cursor.rowcount
+            cursor.execute("COMMIT")
+
+            logger.info(f"批量插入评论: {count}/{len(comments)} 条")
+            return count
+        except Exception as e:
+            logger.error(f"批量插入失败: {e}")
+            try:
+                cursor.execute("ROLLBACK")
+            except:
+                pass
+            return 0
 
     def close(self):
         """关闭数据库连接"""
         if self.conn:
             self.conn.close()
             logger.info("数据库连接已关闭")
+
+    def add_search_history(self, keyword: str, platforms: str):
+        """添加搜索历史"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("""
+                INSERT INTO search_history (keyword, platforms)
+                VALUES (?, ?)
+            """, (keyword, platforms))
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"添加搜索历史失败: {e}")
+
+    def get_search_history(self, limit: int = 20) -> List[dict]:
+        """获取搜索历史"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("""
+                SELECT * FROM search_history
+                ORDER BY search_time DESC
+                LIMIT ?
+            """, (limit,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+        except Exception as e:
+            logger.error(f"获取搜索历史失败: {e}")
+            return []
+
+    def delete_search_history(self, history_id: int):
+        """删除搜索历史"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("DELETE FROM search_history WHERE id = ?", (history_id,))
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"删除搜索历史失败: {e}")
+
+    def clear_search_history(self):
+        """清空搜索历史"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("DELETE FROM search_history")
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"清空搜索历史失败: {e}")
+
+    def add_bulk_urls(self, urls: List[str], platform: str = ""):
+        """批量添加URL"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("BEGIN TRANSACTION")
+            for url in urls:
+                cursor.execute("""
+                    INSERT INTO bulk_urls (url, platform)
+                    VALUES (?, ?)
+                """, (url, platform))
+            cursor.execute("COMMIT")
+            logger.info(f"批量添加 {len(urls)} 个URL")
+        except Exception as e:
+            logger.error(f"批量添加URL失败: {e}")
+            try:
+                cursor.execute("ROLLBACK")
+            except:
+                pass
+
+    def get_pending_urls(self, limit: int = 100) -> List[dict]:
+        """获取待处理的URL"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("""
+                SELECT * FROM bulk_urls
+                WHERE status = 'pending'
+                ORDER BY created_at ASC
+                LIMIT ?
+            """, (limit,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+        except Exception as e:
+            logger.error(f"获取待处理URL失败: {e}")
+            return []
+
+    def update_url_status(self, url_id: int, status: str):
+        """更新URL状态"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("""
+                UPDATE bulk_urls SET status = ? WHERE id = ?
+            """, (status, url_id))
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"更新URL状态失败: {e}")

@@ -2,10 +2,17 @@
 全局配置文件
 """
 import os
+import json
 from pathlib import Path
+
+# 版本号（唯一定义处）
+__version__ = "1.1.0"
 
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent
+
+# 设置文件路径
+SETTINGS_FILE = PROJECT_ROOT / "settings.json"
 
 # 数据库路径
 DB_PATH = PROJECT_ROOT / "data" / "comments.db"
@@ -96,3 +103,30 @@ EXPORT_CONFIG = {
 # 创建必要的目录
 for dir_path in [DB_PATH.parent, EXPORT_DIR, LOG_DIR]:
     dir_path.mkdir(parents=True, exist_ok=True)
+
+
+def load_settings() -> dict:
+    """从文件加载设置"""
+    if SETTINGS_FILE.exists():
+        try:
+            with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+
+def save_settings(settings: dict):
+    """保存设置到文件"""
+    try:
+        with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+            json.dump(settings, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"保存设置失败: {e}")
+
+
+# 启动时加载设置
+_saved_settings = load_settings()
+if _saved_settings:
+    CRAWLER_CONFIG.update(_saved_settings.get("crawler", {}))
+    EXPORT_CONFIG.update(_saved_settings.get("export", {}))

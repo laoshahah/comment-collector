@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (
     QPushButton, QProgressBar, QTextEdit, QMessageBox
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
+from config import __version__
 from updater.updater import (
     check_for_update, download_update, apply_update,
     restart_app, UpdateInfo
@@ -127,7 +128,7 @@ class UpdateDialog(QDialog):
         if update_info:
             self.update_info = update_info
             self.status_label.setText(f"发现新版本: v{update_info.version}")
-            self.version_label.setText(f"当前版本: v1.0.0")
+            self.version_label.setText(f"当前版本: v{__version__}")
 
             if update_info.notes:
                 self.notes_text.setPlainText(update_info.notes)
@@ -136,7 +137,7 @@ class UpdateDialog(QDialog):
             self.download_btn.show()
         else:
             self.status_label.setText("已是最新版本！")
-            self.version_label.setText("当前版本: v1.0.0")
+            self.version_label.setText(f"当前版本: v{__version__}")
 
             if self.auto_check:
                 # 自动检查时不显示"已是最新"对话框

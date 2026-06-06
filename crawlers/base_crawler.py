@@ -21,6 +21,7 @@ class CommentData:
     phone: str = ""         # 手机号
     wechat: str = ""        # 微信号
     qq: str = ""            # QQ号
+    email: str = ""         # 邮箱
     intent: str = "低"      # 意向度：高/中/低
     raw_data: dict = field(default_factory=dict)  # 原始数据
 

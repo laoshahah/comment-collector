@@ -14,9 +14,11 @@ from playwright.async_api import async_playwright
 from gui.search_panel import SearchPanel
 from gui.result_table import ResultTable
 from gui.task_panel import TaskPanel
+from gui.dashboard_tab import DashboardTab
 from gui.settings_dialog import SettingsDialog
 from gui.update_dialog import UpdateDialog
 from gui.styles import STYLESHEET
+from config import __version__
 from storage.database import Database
 from storage.exporter import Exporter
 from utils.logger import logger
@@ -123,6 +125,7 @@ class CrawlerThread(QThread):
                                 "phone": comment.phone,
                                 "wechat": comment.wechat,
                                 "qq": comment.qq,
+                                "email": comment.email,
                                 "intent": comment.intent,
                                 "time": comment.time,
                                 "url": comment.url,
@@ -175,9 +178,10 @@ class MainWindow(QMainWindow):
         search_tab = QWidget()
         search_layout = QVBoxLayout(search_tab)
 
-        self.search_panel = SearchPanel()
+        self.search_panel = SearchPanel(db=self.db)
         self.search_panel.search_started.connect(self.start_crawl)
         self.search_panel.stop_btn.clicked.connect(self.stop_crawl)
+        self.search_panel.bulk_import.connect(self.on_bulk_import)
         search_layout.addWidget(self.search_panel)
 
         self.result_table = ResultTable()
@@ -190,6 +194,10 @@ class MainWindow(QMainWindow):
         # 任务标签页
         self.task_panel = TaskPanel()
         self.tab_widget.addTab(self.task_panel, "任务管理")
+
+        # 仪表盘标签页
+        self.dashboard_tab = DashboardTab(self.db)
+        self.tab_widget.addTab(self.dashboard_tab, "数据仪表盘")
 
         main_layout.addWidget(self.tab_widget)
 
@@ -341,6 +349,20 @@ class MainWindow(QMainWindow):
         if filepath:
             QMessageBox.information(self, "导出成功", f"已导出到: {filepath}")
 
+    def on_bulk_import(self, urls: list):
+        """批量导入URL处理"""
+        if not urls:
+            return
+
+        # 创建批量爬取任务
+        QMessageBox.information(
+            self, "批量导入",
+            f"已导入 {len(urls)} 个URL，即将开始批量爬取..."
+        )
+
+        # TODO: 实现批量URL爬取逻辑
+        # 可以创建一个新的爬虫线程来处理这些URL
+
     def show_settings(self):
         """显示设置对话框"""
         dialog = SettingsDialog(self)
@@ -355,8 +377,8 @@ class MainWindow(QMainWindow):
         """显示关于对话框"""
         QMessageBox.about(
             self, "关于",
-            "跨平台评论采集与客户信息提取工具\n\n"
-            "版本: 1.0.0\n"
+            f"跨平台评论采集与客户信息提取工具\n\n"
+            f"版本: {__version__}\n"
             "功能: 自动采集抖音、小红书、快手评论\n"
             "      提取客户联系方式和购买意向\n\n"
             "技术支持: Python + Playwright + PyQt6"

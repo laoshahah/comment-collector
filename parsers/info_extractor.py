@@ -101,6 +101,7 @@ class InfoExtractor:
         comment.phone = cls.extract_phone(text)
         comment.wechat = cls.extract_wechat(text)
         comment.qq = cls.extract_qq(text)
+        comment.email = cls.extract_email(text)
 
         # 判断意向度
         comment.intent = cls.judge_intent(text)
@@ -125,8 +126,9 @@ class InfoExtractor:
         with_phone = sum(1 for c in processed if c.phone)
         with_wechat = sum(1 for c in processed if c.wechat)
         with_qq = sum(1 for c in processed if c.qq)
+        with_email = sum(1 for c in processed if c.email)
         high_intent = sum(1 for c in processed if c.intent == "高")
 
-        logger.info(f"信息提取完成: 手机号{with_phone}个, 微信{with_wechat}个, QQ{with_qq}个, 高意向{high_intent}条")
+        logger.info(f"信息提取完成: 手机号{with_phone}个, 微信{with_wechat}个, QQ{with_qq}个, 邮箱{with_email}个, 高意向{high_intent}条")
 
         return processed

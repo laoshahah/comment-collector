@@ -23,6 +23,7 @@ class ResultTable(QWidget):
         ("phone", "手机号", 120),
         ("wechat", "微信号", 120),
         ("qq", "QQ号", 100),
+        ("email", "邮箱", 150),
         ("intent", "意向度", 80),
         ("time", "时间", 120),
         ("url", "链接", 150),
