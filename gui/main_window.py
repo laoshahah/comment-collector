@@ -58,6 +58,8 @@ class CrawlerThread(QThread):
         from crawlers.bilibili_crawler import BilibiliCrawler
         from crawlers.weibo_crawler import WeiboCrawler
         from crawlers.zhihu_crawler import ZhihuCrawler
+        from crawlers.simple_crawler import SimpleCrawler
+        from config import PLATFORMS
         from parsers.comment_parser import CommentParser
         from parsers.info_extractor import InfoExtractor
 
@@ -106,6 +108,19 @@ class CrawlerThread(QThread):
                     # 搜索内容
                     self.progress.emit(idx, total_platforms, f"{platform_name}: 搜索中...")
                     contents = await crawler.search(keyword, max_pages)
+
+                    # 如果主爬虫没有结果，使用简化爬虫
+                    if not contents:
+                        logger.info(f"{platform_name}: 主爬虫无结果，使用简化爬虫")
+                        platform_config = PLATFORMS.get(platform_key, {})
+                        search_url = platform_config.get("search_url", "")
+                        if search_url:
+                            simple_crawler = SimpleCrawler(platform_name, search_url)
+                            await simple_crawler.init_browser(p)
+                            simple_results = await simple_crawler.search(keyword, max_pages)
+                            all_results.extend(simple_results)
+                            await simple_crawler.close()
+                        continue
 
                     # 爬取每个内容的评论
                     for content_idx, content in enumerate(contents[:10]):  # 限制前10个内容

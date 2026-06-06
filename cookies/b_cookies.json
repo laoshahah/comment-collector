@@ -85,7 +85,7 @@
       "value": "B21FEE53-B6C2-9F6D-5227-7290A0C4C80C49759-026060616-uzRkPVkRqH2uhDGIpAYtHJhelnbq44akqnkGdIRkx2NZNV9d7bkg/7Kh1iKynfOM",
       "domain": ".bilibili.com",
       "path": "/",
-      "expires": 1815297085.875379,
+      "expires": 1815300535.061684,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -142,27 +142,27 @@
     },
     {
       "name": "bili_ticket",
-      "value": "eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5OTYyNzMsImlhdCI6MTc4MDczNzAxMywicGx0IjotMX0.aKTmvdij6-0NxeX3KvGTmZIprtAqvPtkh46ZNvhEr5I",
+      "value": "eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5OTk3MjMsImlhdCI6MTc4MDc0MDQ2MywicGx0IjotMX0.7wS1z8Sf45xxkzNnsJQa_JMJQEfxecu6szmLEoJ5Jkg",
       "domain": ".bilibili.com",
       "path": "/",
-      "expires": 1780996273,
+      "expires": 1780999723,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "bili_ticket_expires",
-      "value": "1780996213",
+      "value": "1780999663",
       "domain": ".bilibili.com",
       "path": "/",
-      "expires": 1780996273,
+      "expires": 1780999723,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "b_lsid",
-      "value": "1BDB4AD0_19E9C33EA71",
+      "value": "247FB8C5_19E9C688CB0",
       "domain": ".bilibili.com",
       "path": "/",
       "expires": -1,
@@ -181,7 +181,7 @@
         },
         {
           "name": "search_history",
-          "value": "[{\"value\":\"减肥产品\",\"isHistory\":1,\"timestamp\":1780737085000}]"
+          "value": "[{\"value\":\"减肥产品\",\"isHistory\":1,\"timestamp\":1780740534000}]"
         },
         {
           "name": "bmg_af_wl",
@@ -189,7 +189,7 @@
         },
         {
           "name": "bmg_af_sc_local",
-          "value": "{\"none\":{\"on\":true,\"wl\":[1,2,2],\"dft\":5,\"def\":\"i0.hdslb.com\",\"dl\":[\"i0.hdslb.com\",\"i2.hdslb.com\",\"i1.hdslb.com\"]},\"sgp\":{\"on\":true,\"wl\":[1,2,2],\"dft\":5,\"def\":\"i0-sgp.hdslb.com\",\"dl\":[\"i0-sgp.hdslb.com\",\"i1-sgp.hdslb.com\",\"i2-sgp.hdslb.com\"]}}"
+          "value": "{\"none\":{\"on\":true,\"wl\":[1,2,2],\"dft\":5,\"def\":\"i0.hdslb.com\",\"dl\":[\"i0.hdslb.com\",\"i1.hdslb.com\",\"i2.hdslb.com\"]},\"sgp\":{\"on\":true,\"wl\":[1,2,2],\"dft\":5,\"def\":\"i0-sgp.hdslb.com\",\"dl\":[\"i0-sgp.hdslb.com\",\"i2-sgp.hdslb.com\",\"i1-sgp.hdslb.com\"]}}"
         },
         {
           "name": "BILI_MIRROR_REPORT_POOL",
@@ -197,7 +197,7 @@
         },
         {
           "name": "KV_CONFIG_SDK",
-          "value": "{\"333.1339_1\":{\"timestamp\":1780737073181,\"lastUsed\":1780737085826,\"value\":{\"fallback.dft\":\"5\",\"fallback.i\":\"[1,2,2]\",\"fallback.on\":\"1\",\"fallback.suffixes\":\"{\\\"none\\\":{\\\"on\\\":1,\\\"wl\\\":[1,2,2],\\\"dft\\\":5},\\\"sgp\\\":{\\\"on\\\":1,\\\"wl\\\":[1,2,2],\\\"dft\\\":5}}\"},\"versionId\":\"1779957882343\",\"appVersionId\":\"38001\",\"nscode\":1,\"appKey\":\"333.1339\",\"expires\":2592000000},\"333.1333_0\":{\"timestamp\":1780737073182,\"lastUsed\":1780737085831,\"value\":{\"bilimirror.minilogin\":\"{\\\"buvid\\\":[\\\"B6771AA6-7CCD-4EF2-BA5B-1FDE9A25F49A49120infoc\\\",\\\"D025573B-8686-0D9D-48DB-0C84BBB5544A45226infoc\\\",\\\"9BD89CEC-4C19-E243-63B3-9A69417B70A458220infoc\\\",\\\"4AD0D8C7-D936-FB67-4C33-7A13C004E84478537infoc\\\",\\\"84AF2B23-9DC9-0717-A474-BCB7A866198994970infoc\\\",\\\"F4373CB5-E491-2C2A-0541-2FFFC3DF2FCC71448infoc\\\"],\\\"rate\\\":0}\",\"bilimirror.toplist\":\"{\\\"playLogUmd\\\":\\\"https://s1.hdslb.com/bfs/static/log-manipulator@0.2.1/index.js\\\",\\\"trackGray\\\":0,\\\"trackGrayV2\\\":1,\\\"resourceStats\\\":{\\\"enabled\\\":true,\\\"sampleRate\\\":0,\\\"rules\\\":[{\\\"key\\\":\\\"333.1007.main.home-page\\\",\\\"sampleRate\\\":5}]}}\",\"bilimirror.whitelist\":\"{\\\"white\\\":{\\\"rejection\\\":[\\\"extension\\\",\\\"maximum\\\",\\\"SVGIconNext\\\"],\\\"error\\\":[\\\"extension\\\",\\\"SVGIconNext\\\"],\\\"resource\\\":[\\\"extension\\\",\\\"localhost\\\"]},\\\"retry\\\":[],\\\"performance\\\":1,\\\"techpv\\\":5,\\\"poll\\\":5,\\\"userLog\\\":[],\\\"track\\\":{\\\"mid\\\":[],\\\"buvid\\\":[]},\\\"trackGrayV2\\\":1}\"},\"versionId\":\"1772162031366\",\"appVersionId\":\"37253\",\"nscode\":0,\"appKey\":\"333.1333\",\"expires\":2592000000},\"333.938_0\":{\"timestamp\":1780737073269,\"lastUsed\":1780737085866,\"value\":{\"bilimirror.whitelist\":\"{\\\"white\\\":{\\\"rejection\\\":[\\\"chrome-extension\\\",\\\"Reached maximum\\\",\\\"The operation is not supported\\\"],\\\"error\\\":[\\\"chrome-extension\\\",\\\"The user aborted a request\\\"],\\\"resource\\\":[\\\"chrome-extension\\\",\\\"bfs/archive\\\",\\\"bfs/face\\\",\\\"bfs/seed\\\",\\\"bfs/bangumi\\\"],\\\"ua\\\":[]},\\\"retry\\\":[],\\\"performance\\\":1,\\\"techpv\\\":5,\\\"poll\\\":5,\\\"track\\\":{\\\"mid\\\":[],\\\"buvid\\\":[]},\\\"userLog\\\":[],\\\"resourceTime\\\":{\\\"API\\\":[],\\\"JS\\\":[],\\\"IMG\\\":[],\\\"CSS\\\":[],\\\"VIDEO\\\":[],\\\"IFRAME\\\":[]},\\\"filterEndjs\\\":true}\"},\"versionId\":\"1761189588396\",\"appVersionId\":\"35431\",\"nscode\":0,\"appKey\":\"333.938\",\"expires\":2592000000}}"
+          "value": "{\"333.1339_1\":{\"timestamp\":1780740523044,\"lastUsed\":1780740534993,\"value\":{\"fallback.dft\":\"5\",\"fallback.i\":\"[1,2,2]\",\"fallback.on\":\"1\",\"fallback.suffixes\":\"{\\\"none\\\":{\\\"on\\\":1,\\\"wl\\\":[1,2,2],\\\"dft\\\":5},\\\"sgp\\\":{\\\"on\\\":1,\\\"wl\\\":[1,2,2],\\\"dft\\\":5}}\"},\"versionId\":\"1779957882343\",\"appVersionId\":\"38001\",\"nscode\":1,\"appKey\":\"333.1339\",\"expires\":2592000000},\"333.1333_0\":{\"timestamp\":1780740523048,\"lastUsed\":1780740535000,\"value\":{\"bilimirror.minilogin\":\"{\\\"buvid\\\":[\\\"B6771AA6-7CCD-4EF2-BA5B-1FDE9A25F49A49120infoc\\\",\\\"D025573B-8686-0D9D-48DB-0C84BBB5544A45226infoc\\\",\\\"9BD89CEC-4C19-E243-63B3-9A69417B70A458220infoc\\\",\\\"4AD0D8C7-D936-FB67-4C33-7A13C004E84478537infoc\\\",\\\"84AF2B23-9DC9-0717-A474-BCB7A866198994970infoc\\\",\\\"F4373CB5-E491-2C2A-0541-2FFFC3DF2FCC71448infoc\\\"],\\\"rate\\\":0}\",\"bilimirror.toplist\":\"{\\\"playLogUmd\\\":\\\"https://s1.hdslb.com/bfs/static/log-manipulator@0.2.1/index.js\\\",\\\"trackGray\\\":0,\\\"trackGrayV2\\\":1,\\\"resourceStats\\\":{\\\"enabled\\\":true,\\\"sampleRate\\\":0,\\\"rules\\\":[{\\\"key\\\":\\\"333.1007.main.home-page\\\",\\\"sampleRate\\\":5}]}}\",\"bilimirror.whitelist\":\"{\\\"white\\\":{\\\"rejection\\\":[\\\"extension\\\",\\\"maximum\\\",\\\"SVGIconNext\\\"],\\\"error\\\":[\\\"extension\\\",\\\"SVGIconNext\\\"],\\\"resource\\\":[\\\"extension\\\",\\\"localhost\\\"]},\\\"retry\\\":[],\\\"performance\\\":1,\\\"techpv\\\":5,\\\"poll\\\":5,\\\"userLog\\\":[],\\\"track\\\":{\\\"mid\\\":[],\\\"buvid\\\":[]},\\\"trackGrayV2\\\":1}\"},\"versionId\":\"1772162031366\",\"appVersionId\":\"37253\",\"nscode\":0,\"appKey\":\"333.1333\",\"expires\":2592000000},\"333.938_0\":{\"timestamp\":1780740523077,\"lastUsed\":1780740535071,\"value\":{\"bilimirror.whitelist\":\"{\\\"white\\\":{\\\"rejection\\\":[\\\"chrome-extension\\\",\\\"Reached maximum\\\",\\\"The operation is not supported\\\"],\\\"error\\\":[\\\"chrome-extension\\\",\\\"The user aborted a request\\\"],\\\"resource\\\":[\\\"chrome-extension\\\",\\\"bfs/archive\\\",\\\"bfs/face\\\",\\\"bfs/seed\\\",\\\"bfs/bangumi\\\"],\\\"ua\\\":[]},\\\"retry\\\":[],\\\"performance\\\":1,\\\"techpv\\\":5,\\\"poll\\\":5,\\\"track\\\":{\\\"mid\\\":[],\\\"buvid\\\":[]},\\\"userLog\\\":[],\\\"resourceTime\\\":{\\\"API\\\":[],\\\"JS\\\":[],\\\"IMG\\\":[],\\\"CSS\\\":[],\\\"VIDEO\\\":[],\\\"IFRAME\\\":[]},\\\"filterEndjs\\\":true}\"},\"versionId\":\"1761189588396\",\"appVersionId\":\"35431\",\"nscode\":0,\"appKey\":\"333.938\",\"expires\":2592000000}}"
         },
         {
           "name": "BMG_EXTS",
@@ -205,7 +205,7 @@
         },
         {
           "name": "secure_collect_last_report_time_046AACF9-90B6-7A5B-2E32-900016AAD69848332infoc",
-          "value": "1780737073730"
+          "value": "1780740523687"
         },
         {
           "name": "bmg_af_dft",
