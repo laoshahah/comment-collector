@@ -1,10 +1,12 @@
 """
 数据导出模块
+支持多种导出格式和自定义列
 """
 import pandas as pd
+import json
 from pathlib import Path
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from config import EXPORT_DIR, EXPORT_CONFIG
 from utils.logger import logger
 
@@ -21,6 +23,7 @@ class Exporter:
         "phone",         # 手机号
         "wechat",        # 微信号
         "qq",            # QQ号
+        "email",         # 邮箱
         "intent",        # 意向度
         "time",          # 评论时间
         "url",           # 原文链接
@@ -36,6 +39,7 @@ class Exporter:
         "phone": "手机号",
         "wechat": "微信号",
         "qq": "QQ号",
+        "email": "邮箱",
         "intent": "意向度",
         "time": "时间",
         "url": "链接",
@@ -138,7 +142,7 @@ class Exporter:
         # 筛选有联系方式的数据
         contact_data = [
             row for row in data
-            if row.get("phone") or row.get("wechat") or row.get("qq")
+            if row.get("phone") or row.get("wechat") or row.get("qq") or row.get("email")
         ]
 
         if not contact_data:
@@ -150,3 +154,79 @@ class Exporter:
             filename = f"客户联系方式_{timestamp}"
 
         return cls.export_excel(contact_data, filename)
+
+    @classmethod
+    def export_json(
+        cls,
+        data: List[dict],
+        filename: str = None,
+    ) -> str:
+        """
+        导出为 JSON 文件
+        Args:
+            data: 评论数据列表
+            filename: 文件名（不含扩展名）
+        Returns:
+            导出文件路径
+        """
+        if not data:
+            logger.warning("没有数据可导出")
+            return ""
+
+        if not filename:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"评论数据_{timestamp}"
+
+        filepath = EXPORT_DIR / f"{filename}.json"
+
+        try:
+            with open(filepath, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            logger.info(f"导出 JSON 成功: {filepath}")
+            return str(filepath)
+        except Exception as e:
+            logger.error(f"导出 JSON 失败: {e}")
+            return ""
+
+    @classmethod
+    def export_high_intent(
+        cls,
+        data: List[dict],
+        filename: str = None,
+    ) -> str:
+        """
+        导出高意向客户
+        """
+        high_intent_data = [row for row in data if row.get("intent") == "高"]
+
+        if not high_intent_data:
+            logger.warning("没有高意向客户数据")
+            return ""
+
+        if not filename:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"高意向客户_{timestamp}"
+
+        return cls.export_excel(high_intent_data, filename)
+
+    @classmethod
+    def export_by_platform(
+        cls,
+        data: List[dict],
+        platform: str,
+        filename: str = None,
+    ) -> str:
+        """
+        按平台导出数据
+        """
+        platform_data = [row for row in data if row.get("platform") == platform]
+
+        if not platform_data:
+            logger.warning(f"没有 {platform} 的数据")
+            return ""
+
+        if not filename:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{platform}_评论_{timestamp}"
+
+        return cls.export_excel(platform_data, filename)

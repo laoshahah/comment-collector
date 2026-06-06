@@ -1,11 +1,12 @@
 """
-GUI 样式定义
+GUI 样式定义 - 增强版
 """
 
 # 主题颜色
 COLORS = {
     "primary": "#2196F3",       # 主色调（蓝色）
     "primary_dark": "#1976D2",  # 深蓝
+    "primary_light": "#BBDEFB", # 浅蓝
     "accent": "#FF5722",        # 强调色（橙色）
     "success": "#4CAF50",       # 成功（绿色）
     "warning": "#FF9800",       # 警告（橙色）
@@ -15,6 +16,7 @@ COLORS = {
     "text_primary": "#212121",  # 主要文字
     "text_secondary": "#757575",# 次要文字
     "border": "#E0E0E0",        # 边框色
+    "highlight": "#E3F2FD",     # 高亮色
 }
 
 # 意向度颜色
@@ -134,10 +136,70 @@ QProgressBar {{
     border: 1px solid {COLORS["border"]};
     border-radius: 4px;
     text-align: center;
+    height: 20px;
 }}
 QProgressBar::chunk {{
     background-color: {COLORS["primary"]};
     border-radius: 3px;
+}}
+
+/* 标签页 */
+QTabWidget::pane {{
+    border: 1px solid {COLORS["border"]};
+    background-color: {COLORS["surface"]};
+}}
+QTabBar::tab {{
+    background-color: {COLORS["background"]};
+    border: 1px solid {COLORS["border"]};
+    padding: 8px 16px;
+    margin-right: 2px;
+}}
+QTabBar::tab:selected {{
+    background-color: {COLORS["surface"]};
+    border-bottom-color: {COLORS["surface"]};
+}}
+
+/* 工具提示 */
+QToolTip {{
+    background-color: {COLORS["surface"]};
+    color: {COLORS["text_primary"]};
+    border: 1px solid {COLORS["border"]};
+    padding: 4px;
+}}
+
+/* 滚动条 */
+QScrollBar:vertical {{
+    background-color: {COLORS["background"]};
+    width: 12px;
+    margin: 0;
+}}
+QScrollBar::handle:vertical {{
+    background-color: {COLORS["border"]};
+    min-height: 20px;
+    border-radius: 6px;
+}}
+QScrollBar::handle:vertical:hover {{
+    background-color: {COLORS["text_secondary"]};
+}}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
+    height: 0;
+}}
+
+QScrollBar:horizontal {{
+    background-color: {COLORS["background"]};
+    height: 12px;
+    margin: 0;
+}}
+QScrollBar::handle:horizontal {{
+    background-color: {COLORS["border"]};
+    min-width: 20px;
+    border-radius: 6px;
+}}
+QScrollBar::handle:horizontal:hover {{
+    background-color: {COLORS["text_secondary"]};
+}}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {{
+    width: 0;
 }}
 """
 

@@ -5,7 +5,7 @@
       "value": "PC_WEB",
       "domain": ".www.kuaishou.com",
       "path": "/",
-      "expires": 1812271238.082969,
+      "expires": 1812273056.769599,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
@@ -15,7 +15,7 @@
       "value": "3",
       "domain": ".www.kuaishou.com",
       "path": "/",
-      "expires": 1812271238.08352,
+      "expires": 1812273056.770639,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
@@ -25,7 +25,7 @@
       "value": "web_4dcba8dad33c31cfd80b22eb892b4f0c",
       "domain": ".kuaishou.com",
       "path": "/",
-      "expires": 1812271238.083572,
+      "expires": 1812273056.770758,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -35,14 +35,14 @@
       "value": "kuaishou-vision",
       "domain": ".kuaishou.com",
       "path": "/",
-      "expires": 1783327238,
+      "expires": 1783329057,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "ktrace-context",
-      "value": "1|MS44Nzg0NzI0NTc4Nzk2ODY5LjU4NTkxODczLjE3ODA3MzUyMzc5NDYuODYwMzIxMjE=|MS44Nzg0NzI0NTc4Nzk2ODY5Ljk0Mjk4MTMzLjE3ODA3MzUyMzc5NDYuODYwMzIxMjI=|0|webservice-user-growth-node|webservice|true|src-Js",
+      "value": "1|MS44Nzg0NzI0NTc4Nzk2ODY5LjQzNjU5MzIyLjE3ODA3MzcwNTY3MTQuODA0NTQ0MTg=|MS44Nzg0NzI0NTc4Nzk2ODY5LjQxODM1MzEzLjE3ODA3MzcwNTY3MTQuODA0NTQ0MTk=|0|webservice-user-growth-node|webservice|true|src-Js",
       "domain": "www.kuaishou.com",
       "path": "/",
       "expires": -1,
@@ -55,37 +55,37 @@
       "value": "KUAISHOU_VISION",
       "domain": ".www.kuaishou.com",
       "path": "/",
-      "expires": 1812271238.083482,
+      "expires": 1812273056.770562,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
     },
     {
-      "name": "kwfv1",
-      "value": "PeDA80mSG00ZF8e400wnrU+fr78fLAwn+f+erh8nz0Pfbf80YDw/pfP/qUG/Yf80Hl+nrA+eWFG9Gh8eG9weHU+/cIPnP7P0QD80+DP04jw/mjw/qhPfGA8BQSG0HA+nLEP/bDwebjwe8jPf+0P0PA8frEPALMGncU+AYf+A4Y8/r=",
-      "domain": ".kuaishou.com",
-      "path": "/",
-      "expires": 1783327238,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "kwssectoken",
-      "value": "SVI6OaR5daElmqFg798KT3HQE/XBYAGFMEqzk2juY5pbuG1RDcP/LW99R5TACTcz6XDfvY8ZrODyDQEikF04cg==",
+      "value": "JilQLYXwvmrvs9xKGxLh1laTe5Yq8wKtQ4SeRquqYv2yWFA33coLtULsN87hWdi73fdGFCvR+Xn1MeTBceA9xQ==",
       "domain": ".kuaishou.com",
       "path": "/",
-      "expires": 1780735598,
+      "expires": 1780737422,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "kwscode",
-      "value": "354b5936cfd5c804230b90d77cc8c355f465a21f420b2a616f6e96fcf718f5a0",
+      "value": "4edb255b6a4abf408282d5383588890b8ff5de73e7945d25cee7d313be58bcfe",
       "domain": ".kuaishou.com",
       "path": "/",
-      "expires": 1780735598,
+      "expires": 1780737422,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "kwfv1",
+      "value": "PeDA80mSG00ZF8e400wnrU+fr78fLAwn+f+erh8nz0Pfbf80YDw/pfP/qUG/Yf80Hl+nrA+eWFG9Gh8eG9weHU+nG9+Ac98eD7wBpY+9pf+/D7GAHA+nG9+0Qf+fpSP/WhweDUGA40+eWAPeqI+ASYPeZl+9cFPA8DPBLUPBpY8nr=",
+      "domain": ".kuaishou.com",
+      "path": "/",
+      "expires": 1783329062,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -97,15 +97,15 @@
       "localStorage": [
         {
           "name": "WEBLOGGER_CHANNEL_SEQ_ID_NORMAL",
-          "value": "7"
+          "value": "4"
         },
         {
           "name": "OTHER_DEVICE_INCREASE_ID",
-          "value": "10"
+          "value": "7"
         },
         {
           "name": "kwfv1",
-          "value": "PeDA80mSG00ZF8e400wnrU+fr78fLAwn+f+erh8nz0Pfbf80YDw/pfP/qUG/Yf80Hl+nrA+eWFG9Gh8eG9weHU+/cIPnP7P0QD80+DP04jw/mjw/qhPfGA8BQSG0HA+nLEP/bDwebjwe8jPf+0P0PA8frEPALMGncU+AYf+A4Y8/r="
+          "value": "PeDA80mSG00ZF8e400wnrU+fr78fLAwn+f+erh8nz0Pfbf80YDw/pfP/qUG/Yf80Hl+nrA+eWFG9Gh8eG9weHU+nG9+Ac98eD7wBpY+9pf+/D7GAHA+nG9+0Qf+fpSP/WhweDUGA40+eWAPeqI+ASYPeZl+9cFPA8DPBLUPBpY8nr="
         },
         {
           "name": "WEBLOGGER_V2_SEQ_ID_showEvent",
@@ -121,19 +121,11 @@
         },
         {
           "name": "WEBLOGGER_CUSTOM_INCREAMENT_ID_KEY",
-          "value": "7"
-        },
-        {
-          "name": "WEBLOGGER_V2_SEQ_ID_clickEvent",
-          "value": "2"
+          "value": "6"
         },
         {
           "name": "WEBLOGGER_INCREAMENT_ID_KEY",
-          "value": "7"
-        },
-        {
-          "name": "WEBLOGGER_V2_SEQ_ID_taskEvent",
-          "value": "1"
+          "value": "4"
         }
       ]
     }

@@ -1,10 +1,11 @@
 """
-结果表格
+结果表格 - 增强版，支持搜索和高级筛选
 """
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QTableWidget,
     QTableWidgetItem, QPushButton, QLabel, QComboBox,
-    QHeaderView, QAbstractItemView, QMenu, QApplication
+    QHeaderView, QAbstractItemView, QMenu, QApplication,
+    QLineEdit, QGroupBox, QGridLayout, QCheckBox
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QColor, QAction
@@ -38,38 +39,68 @@ class ResultTable(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
 
-        # 工具栏
-        toolbar_layout = QHBoxLayout()
+        # 搜索栏
+        search_layout = QHBoxLayout()
+        search_layout.addWidget(QLabel("搜索:"))
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText("输入关键词搜索评论内容、作者、联系方式...")
+        self.search_input.textChanged.connect(self.apply_filter)
+        search_layout.addWidget(self.search_input)
+
+        self.search_btn = QPushButton("搜索")
+        self.search_btn.clicked.connect(self.apply_filter)
+        search_layout.addWidget(self.search_btn)
+
+        layout.addLayout(search_layout)
+
+        # 筛选栏
+        filter_layout = QHBoxLayout()
 
         # 统计标签
         self.stats_label = QLabel("共 0 条数据")
-        toolbar_layout.addWidget(self.stats_label)
+        filter_layout.addWidget(self.stats_label)
 
-        toolbar_layout.addStretch()
+        filter_layout.addStretch()
 
-        # 筛选
-        toolbar_layout.addWidget(QLabel("意向度:"))
+        # 意向度筛选
+        filter_layout.addWidget(QLabel("意向度:"))
         self.intent_filter = QComboBox()
         self.intent_filter.addItems(["全部", "高", "中", "低"])
         self.intent_filter.currentTextChanged.connect(self.apply_filter)
-        toolbar_layout.addWidget(self.intent_filter)
+        filter_layout.addWidget(self.intent_filter)
 
-        toolbar_layout.addWidget(QLabel("平台:"))
+        # 平台筛选
+        filter_layout.addWidget(QLabel("平台:"))
         self.platform_filter = QComboBox()
         self.platform_filter.addItems(["全部", "抖音", "小红书", "快手", "B站", "微博", "知乎"])
         self.platform_filter.currentTextChanged.connect(self.apply_filter)
-        toolbar_layout.addWidget(self.platform_filter)
+        filter_layout.addWidget(self.platform_filter)
+
+        # 联系方式筛选
+        self.contact_only = QCheckBox("仅有联系方式")
+        self.contact_only.stateChanged.connect(self.apply_filter)
+        filter_layout.addWidget(self.contact_only)
+
+        layout.addLayout(filter_layout)
 
         # 导出按钮
+        export_layout = QHBoxLayout()
+
         self.export_excel_btn = QPushButton("导出 Excel")
         self.export_excel_btn.setStyleSheet("background-color: #4CAF50;")
-        toolbar_layout.addWidget(self.export_excel_btn)
+        export_layout.addWidget(self.export_excel_btn)
 
         self.export_contacts_btn = QPushButton("导出联系方式")
         self.export_contacts_btn.setStyleSheet("background-color: #FF9800;")
-        toolbar_layout.addWidget(self.export_contacts_btn)
+        export_layout.addWidget(self.export_contacts_btn)
 
-        layout.addLayout(toolbar_layout)
+        self.export_high_intent_btn = QPushButton("导出高意向")
+        self.export_high_intent_btn.setStyleSheet("background-color: #F44336;")
+        export_layout.addWidget(self.export_high_intent_btn)
+
+        export_layout.addStretch()
+
+        layout.addLayout(export_layout)
 
         # 表格
         self.table = QTableWidget()
@@ -127,14 +158,38 @@ class ResultTable(QWidget):
         """应用筛选"""
         intent_filter = self.intent_filter.currentText()
         platform_filter = self.platform_filter.currentText()
+        search_text = self.search_input.text().strip().lower()
+        contact_only = self.contact_only.isChecked()
 
         filtered = self.all_data
 
+        # 意向度筛选
         if intent_filter != "全部":
             filtered = [d for d in filtered if d.get("intent") == intent_filter]
 
+        # 平台筛选
         if platform_filter != "全部":
             filtered = [d for d in filtered if d.get("platform") == platform_filter]
+
+        # 仅有联系方式筛选
+        if contact_only:
+            filtered = [
+                d for d in filtered
+                if d.get("phone") or d.get("wechat") or d.get("qq") or d.get("email")
+            ]
+
+        # 关键词搜索
+        if search_text:
+            filtered = [
+                d for d in filtered
+                if search_text in str(d.get("content", "")).lower()
+                or search_text in str(d.get("author", "")).lower()
+                or search_text in str(d.get("phone", "")).lower()
+                or search_text in str(d.get("wechat", "")).lower()
+                or search_text in str(d.get("qq", "")).lower()
+                or search_text in str(d.get("email", "")).lower()
+                or search_text in str(d.get("title", "")).lower()
+            ]
 
         self.update_table(filtered)
 
@@ -216,5 +271,5 @@ class ResultTable(QWidget):
         """获取包含联系方式的数据"""
         return [
             d for d in self.all_data
-            if d.get("phone") or d.get("wechat") or d.get("qq")
+            if d.get("phone") or d.get("wechat") or d.get("qq") or d.get("email")
         ]

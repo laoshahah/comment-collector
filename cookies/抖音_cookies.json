@@ -1,26 +1,6 @@
 {
   "cookies": [
     {
-      "name": "__ac_nonce",
-      "value": "06a23d74d001003406e1",
-      "domain": "www.douyin.com",
-      "path": "/",
-      "expires": 1780735573.768071,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "__ac_signature",
-      "value": "_02B4Z6wo00f01UENDaQAAIDDcpj75uYtg9VBPSkAADpk3d",
-      "domain": "www.douyin.com",
-      "path": "/",
-      "expires": 1812269773,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
       "name": "s_v_web_id",
       "value": "verify_mq22wtsv_fDGhpNHk_KJP1_4DbY_8HpX_hADtxpwUc5Xe",
       "domain": "www.douyin.com",
@@ -205,7 +185,7 @@
       "value": "1%7CuSIwJ7batIviqf8BmtQKsiXiEAiSjhafSw21R_IQYOo%7C1780734082%7Cce7cde3076bcef0b2598355a8357ad36e132a74cc26377092fa300ce202e6ac4",
       "domain": ".douyin.com",
       "path": "/",
-      "expires": 1811839187.290636,
+      "expires": 1811840997.489665,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
@@ -219,16 +199,6 @@
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
-    },
-    {
-      "name": "douyin_search_screen",
-      "value": "390*844",
-      "domain": "so.douyin.com",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
     },
     {
       "name": "pre_reload_logid",
@@ -245,7 +215,7 @@
       "value": "1%7CuSIwJ7batIviqf8BmtQKsiXiEAiSjhafSw21R_IQYOo%7C1780734082%7Cce7cde3076bcef0b2598355a8357ad36e132a74cc26377092fa300ce202e6ac4",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1812271189.826454,
+      "expires": 1812272997.885744,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
@@ -255,7 +225,7 @@
       "value": "1",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1780821590.185344,
+      "expires": 1780823399.568636,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -265,7 +235,7 @@
       "value": "1",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1781599192.665752,
+      "expires": 1781601000.355046,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -275,7 +245,7 @@
       "value": "0",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1781599190.185552,
+      "expires": 1781600999.56882,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -285,17 +255,7 @@
       "value": "7648194166048802330",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1783327192,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "__tea_cache_tokens_581610",
-      "value": "{%22_type_%22:%22default%22%2C%22user_unique_id%22:%227648194166048802330%22%2C%22timestamp%22:1780735192651}",
-      "domain": ".so.douyin.com",
-      "path": "/",
-      "expires": 1781339992,
+      "expires": 1783329000,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -305,7 +265,7 @@
       "value": "0",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1781599192.665698,
+      "expires": 1781601000.354998,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -315,7 +275,7 @@
       "value": "0",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1780821592.762375,
+      "expires": 1780823400.449776,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -325,7 +285,7 @@
       "value": "0",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1780821592.762442,
+      "expires": 1780823400.449822,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -335,7 +295,7 @@
       "value": "1",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1780821592.762467,
+      "expires": 1780823400.44985,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -345,7 +305,7 @@
       "value": "1",
       "domain": "so.douyin.com",
       "path": "/",
-      "expires": 1783327192,
+      "expires": 1783329000,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -359,6 +319,66 @@
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
+    },
+    {
+      "name": "__ac_nonce",
+      "value": "06a23e3e4008af2a743a1",
+      "domain": "www.douyin.com",
+      "path": "/",
+      "expires": 1780738796.684891,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__ac_signature",
+      "value": "_02B4Z6wo00f01CE.YtgAAIDCEqqUmqInuoQhD0ZAAGJy7a",
+      "domain": "www.douyin.com",
+      "path": "/",
+      "expires": 1812272996,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__ac_referer",
+      "value": "__ac_blank",
+      "domain": "www.douyin.com",
+      "path": "/",
+      "expires": 1812272996,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__tea_cache_tokens_581610",
+      "value": "{%22_type_%22:%22default%22%2C%22user_unique_id%22:%227648194166048802330%22%2C%22timestamp%22:1780737000345}",
+      "domain": ".so.douyin.com",
+      "path": "/",
+      "expires": 1781341800,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "net_fs_poor_count",
+      "value": "1",
+      "domain": "so.douyin.com",
+      "path": "/",
+      "expires": 1781341800,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "douyin_search_screen",
+      "value": "360*800",
+      "domain": "so.douyin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
     }
   ],
   "origins": [
@@ -371,23 +391,23 @@
         },
         {
           "name": "SLARDARdouyin_h5",
-          "value": "JTdCJTIydXNlcklkJTIyOiUyMjk0MzhmY2NmLWIyYzItNDY3OC04ZTRmLWNlOGZkZjVjNTQ4NyUyMiwlMjJkZXZpY2VJZCUyMjolMjJiNGIyZjBjOS01NzIzLTRjZGUtODZiNS0yOTk0MTMwMTFlMGMlMjIsJTIyZXhwaXJlcyUyMjoxNzg4NTExMTkzNjEyJTdE"
+          "value": "JTdCJTIydXNlcklkJTIyOiUyMmJlYjJiOTM3LTM2ZmYtNGIyMS04ODFhLTU2NDU4MDViOWJlNCUyMiwlMjJkZXZpY2VJZCUyMjolMjJmMTMwNGExOC1kNGRiLTRjMzktOWYxZC01MThmMzdhYWFiMWIlMjIsJTIyZXhwaXJlcyUyMjoxNzg4NTEzMDAxMjUwJTdE"
         },
         {
           "name": "SEARCH_HISTORY_guest",
-          "value": "U2FsdGVkX19Vcg43Ibhfl0Myyff32Xeey+YSyOUUESe+osK+39GXylGY10DDutZAodZVqwhPW1Sc1IIoZRKM5Q=="
+          "value": "U2FsdGVkX18XhPBsBLMyZiFdoJEuxgFb5Yzbl/9KS6nZ1iZvzbhptqraWcooHRmX20CpatHCHeFBwOw/KZgbMg=="
         },
         {
           "name": "prev_search_id",
-          "value": "202606061639494D7C850881A97010F500"
+          "value": "20260606170957FB5482F5E531873BEBCE"
         },
         {
           "name": "appSettingsUpdateTimeStamp",
-          "value": "1780735193323"
+          "value": "1780737001249"
         },
         {
           "name": "__tea_cache_tokens_581610",
-          "value": "{\"_type_\":\"default\",\"user_unique_id\":\"7648194166048802330\",\"timestamp\":1780735192651}"
+          "value": "{\"_type_\":\"default\",\"user_unique_id\":\"7648194166048802330\",\"timestamp\":1780737000345}"
         },
         {
           "name": "__tea_cache_first_581610",
@@ -395,7 +415,7 @@
         },
         {
           "name": "xmst",
-          "value": "TTJmdX2jMWo8OQuFHYYsJMl5-wdTLhnXjbYVahTXcifVvWjtSLd67LLdyhLEYYwGdyLuRfqK1BCgmRuTX8Zy6VWNSS7XNFaM2GcgIRegf0SFLhhwQHXn"
+          "value": "y-sCNphWeVjUUSZbnKEY-pYaRgzu4IK6c1JmE3HgR2G2jK6CXEIywBcuHGvY7SlV0IGCs9SmTEhMnaYX3W9rJaaIuWm6Dm7Liauda4b-2fm5i0dnGc0sbGuvsG_dDA=="
         },
         {
           "name": "has_cleared_video_detail_key",
@@ -403,7 +423,7 @@
         },
         {
           "name": "search_id",
-          "value": "202606061639494D7C850881A97010F500"
+          "value": "20260606170957FB5482F5E531873BEBCE"
         },
         {
           "name": "search_webid",
@@ -411,11 +431,20 @@
         },
         {
           "name": "appSettings",
-          "value": "{\"appSettings\":{\"feedback_questionnarie_config\":{\"feedback_config_keys\":{\"doc_type\":{\"3\":{\"questionnaire_config\":\"5\",\"desc\":\"广告卡\"},\"103\":{\"questionnaire_config\":\"6\",\"desc\":\"图片搜索\"},\"153\":{\"questionnaire_config\":\"3\",\"desc\":\"原生视频\"},\"303\":{\"questionnaire_config\":\"2\",\"desc\":\"原生图文\"}},\"ad\":{},\"aladdin\":{\"douyin_web_lightapp\":{\"questionnaire_config\":\"1\",\"desc\":\"web化轻应用\"},\"deepqa\":{\"questionnaire_config\":\"1\",\"desc\":\"图文精准问答 web类结果\"},\"douyin_weitoutiao\":{\"questionnaire_config\":\"1\",\"desc\":\"微头条\"},\"toutiao_web\":{\"questionnaire_config\":\"1\",\"desc\":\"web类结果\"},\"toutiao_article\":{\"questionnaire_config\":\"1\",\"desc\":\"web类结果\"}}},\"feedback_questionnaire_config\":{\"0\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"网页打不开\"},{\"text\":\"操作卡顿\"},{\"text\":\"样式/功能体验差\"},{\"text\":\"内容错误\"},{\"text\":\"资源过少\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"通用如意类结果，默认\"},\"1\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"网页打不开\"},{\"text\":\"内容错误\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"需要付费\"},{\"text\":\"弹窗遮挡内容\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"web类结果\"},\"2\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"低质模糊\"},{\"text\":\"内容老旧\"},{\"text\":\"错误/不详细\"},{\"text\":\"过度营销\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"原生图集结果\"},\"3\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"低质模糊\"},{\"text\":\"内容老旧\"},{\"text\":\"错误/不详细\"},{\"text\":\"过度营销\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"原生视频结果\"},\"4\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"该作者\"},{\"text\":\"该类目\"},{\"text\":\"该应用\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/heart-borken.png\",\"title\":\"我不想看\"},{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容质量差\"},{\"text\":\"内容重复出现\"},{\"text\":\"广告过于密集\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"反馈内容问题\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"广告类结果，带下载\"},\"5\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"该作者\"},{\"text\":\"该类目\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/heart-borken.png\",\"title\":\"我不想看\"},{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容质量差\"},{\"text\":\"内容重复出现\"},{\"text\":\"广告过于密集\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"反馈内容问题\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"广告类结果，不带下载\"},\"6\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容负面/不实\"},{\"text\":\"隐私或侵权信息\"},{\"text\":\"涉嫌违法/色情\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"反馈其他问题 >\",\"input\":1}],\"multiple\":1,\"title\":\"不满意的原因（可多选）\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"图片搜索卡片反馈\"}}},\"search_tab_config\":[{\"tab_type\":\"general\",\"tab_name\":\"综合\",\"feed_type\":1,\"extra\":{}},{\"tab_type\":\"video\",\"tab_name\":\"视频\",\"feed_type\":2,\"extra\":{}},{\"tab_type\":\"user\",\"tab_name\":\"用户\",\"feed_type\":3,\"extra\":{}},{\"tab_type\":\"goods\",\"tab_name\":\"商品\",\"feed_type\":8,\"extra\":{}},{\"tab_type\":\"live\",\"tab_name\":\"直播\",\"feed_type\":6,\"extra\":{}},{\"tab_type\":\"music\",\"tab_name\":\"音乐\",\"feed_type\":4,\"extra\":{}},{\"tab_type\":\"poi\",\"tab_name\":\"地点\",\"feed_type\":7,\"extra\":{}},{\"tab_type\":\"hashtag\",\"tab_name\":\"话题\",\"feed_type\":5,\"extra\":{}}],\"search_feed_cooperate_channel\":{\"VivoBrowser\":{\"isWhiteList\":1},\"HeytapBrowser\":{\"isWhiteList\":1}},\"feedback_reason_config\":{\"feedback_reason\":{\"sug\":[\"内容表述错误\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"与搜索词无关\",\"其他\"],\"cr\":[\"与搜索词无关\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"相似/重复内容过多\",\"其他问题反馈\"],\"rs\":[\"与搜索词无关\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"相似/重复内容过多\",\"其他问题反馈\"]}},\"search_feed_divider_height\":10,\"search_preload_templates\":[{\"channel\":\"morphling_high\",\"cardName\":\"related_search/index\"},{\"channel\":\"morphling_high\",\"cardName\":\"toutiao_web/index\"},{\"channel\":\"morphling_normal\",\"cardName\":\"aweme_live_lynx/index\"},{\"channel\":\"fe_lynx_main_v2_normal\",\"cardName\":\"vertical-normal-living-room\"},{\"channel\":\"fe_lynx_main_v2_normal\",\"cardName\":\"aweme_wenda\"},{\"channel\":\"morphling_high\",\"cardName\":\"douyin_chatgpt/index\"},{\"channel\":\"morphling_high\",\"cardName\":\"toutiao_article_v2/index\"}],\"search_feed_divider_color_light\":\"#800E0F1A\",\"dynamic_config_search_transfer_main\":{\"settings\":{\"framework_upgrade_reactLynx3\":\"true\",\"search_transfer_theme_trial\":\"\",\"delay_render_less_important\":\"\",\"storage_use_ui_thread\":\"\",\"report_network_track\":\"\",\"local_billboard_opt\":\"\",\"calc_gs_text_render_info\":\"1\",\"pass_city_board_local_cache\":\"1\",\"vertical_intent_search_strategy\":0,\"video_sign_count\":\"\",\"is_aweme_clue_author\":\"1\",\"search_transfer_pin_gs\":\"\",\"record_suggest_debug_info\":0,\"guess_like\":\"{\\\"refresh_method\\\":5}\",\"gs_layout_opt\":\"\",\"gs_skeleton_opt\":\"1\",\"search_middle_guess_word_count\":8,\"keyboard_event_timing_update\":\"\",\"disable_guess_search_module\":\"\",\"history_module_new\":\"1\",\"rendering_adhesions\":\"\",\"close_personal_gs_refresh_opt\":\"1\",\"gs_track_attr_error_no_report\":\"\",\"enable_gray_theme\":\"\",\"history_default_display_num\":\"\",\"search_predict_enable\":1,\"st_hide_suggest_word\":\"\",\"history_handle_style\":\"doubleListTitleFoldAndDel\",\"history_perf_poor\":\"\",\"enabled_network_opt\":\"1\",\"poi_toast_enable_from_cache\":\"1\",\"module_title_color\":\"1\",\"gs_update_data_fail_not_report\":\"\",\"have_kangyi_tab\":\"\",\"have_experience_tab\":\"\",\"waiting_native_duration\":\"\",\"use_result_video_sign\":\"\",\"guess_search_poi_tag\":\"1\",\"ipad_new_style\":\"\",\"perf_deletion_supplement\":\"\",\"history_title_text\":\"\",\"seeding_reverse\":\"\",\"waiting_fe_fetch_duration\":\"\",\"expand_text_type\":\"\",\"pause_state_resume_timing\":\"\",\"verify_search_worth\":\"\",\"use_async_fetch_thread\":\"\",\"search_transfer_feed_prefetch_map\":\"null\",\"prefetch_first_render\":\"\",\"guess_after_search_style\":\"4\",\"personal_recommend_opt\":\"\",\"gs_data_optimize\":\"\",\"preload_billboard\":\"\",\"history_max_limit_display_number\":\"20\",\"is_sort_frequent_search\":\"\",\"search_transfer_city_board\":\"1\",\"transfer_performance_opt_v4\":\"\",\"use_log_provider\":\"1\",\"show_theme_billboard\":\"\",\"search_transfer_feed_prefetch_config\":\"null\",\"hr_gs_style_margin_reduce\":\"1\",\"search_transfer_exposure_opt\":\"\",\"state_pause_type\":\"\",\"search_predict_from\":\"recom_search,search_history,search_sug,default_search_keyword,normal_search,comment_named_entity_search,comment_related_search\",\"search_trending_package_simplify\":\"{\\\"sug_history_cnt\\\":3,\\\"sug_opt_url\\\":1,\\\"gs_history_cnt\\\":3}\",\"pad_history_record_style\":\"1\",\"close_personal_uid_0\":\"1\",\"enable_seeding\":\"1\",\"guess_search_perf_poor\":\"\",\"gs_track_attr_replace_error_scene\":\"\",\"transfer_use_async_bridge\":\"\",\"hr_gs_style_fontsize_reduce\":\"\",\"module_title_size\":\"md\",\"history_record_style\":\"\",\"search_transfer_use_container_ab_params\":\"\"}},\"general_recom_suggest_words_config\":{\"douyin_doctype_aweme_video\":{\"is_show\":1},\"ad_doctype_ad\":{\"is_show\":1},\"douyin_doctype_goods.ecom_columns_goods\":{\"is_show\":1},\"ad_doctype_ad.image\":{\"is_show\":1},\"douyin_doctype_aweme_baike.baike_wiki_doc\":{\"is_show\":1},\"douyin_toutiao_chat_gpt.toutiao_chat_gpt\":{\"is_show\":1},\"douyin_lottery_all1.lottery_all1\":{\"is_show\":1},\"ad_doctype_ad.303\":{\"is_show\":1},\"douyin_image.image\":{\"is_show\":1},\"douyin_zuowen.zuowen\":{\"is_show\":1},\"douyin_toutiao_web.toutiao_web\":{\"is_show\":1},\"douyin_doctype_aweme_xiaohe_health_article.xiaohe_tuwen\":{\"is_show\":1},\"douyin_aft_hanzi_detail.aft_hanzi_detail\":{\"is_show\":1},\"douyin_doctype_aweme_live.aweme_live_lynx\":{\"is_show\":1},\"douyin_express.express\":{\"is_show\":1},\"ad_doctype_ad.business_search\":{\"is_show\":1},\"douyin_douyin_groupbuy_spu.lego_poi_groupbuy_text_card\":{\"is_show\":1},\"douyin_deepqa.deepqa\":{\"is_show\":1},\"douyin_translate.translate\":{\"is_show\":1},\"douyin_dict.dict\":{\"is_show\":1},\"douyin_doctype_aweme_image\":{\"is_show\":1},\"douyin_doctype_aweme_toutiao_site_article.toutiao_article\":{\"is_show\":1}},\"search_autoplay_static_blacklist\":[\"related_word\",\"live_user\",\"general_shop_live_shop\",\"dyhuodong_sport_star_player\",\"ecom_live_user\",\"ecom_user_attach_live\",\"ecom_shop_ad_shop\",\"ecom_user_ad_user\",\"douyin_gaokao_major_title_card\",\"douyin_college_title_card\",\"douyin_gaokao_toolbox\",\"douyin_gaokao_related_college\",\"douyin_gaokao_group_chat\",\"douyin_gk_major_category_header\",\"douyin_gaokao_major\",\"douyin_gaokao_major_info_aggr\",\"douyin_college_major_enrollment_aggr\",\"gaokao_schedule\",\"gaokao_score_line_aggr\"],\"search_feed_divider_color\":\"#800E0F1A\"},\"hash\":\"eyJlIjoiMlhUZUJzK01RZGVheTNiWmNRa1hMUT09IiwidiI6ODIyNTQzN30=\"}"
+          "value": "{\"appSettings\":{\"general_recom_suggest_words_config\":{\"douyin_doctype_aweme_video\":{\"is_show\":1},\"ad_doctype_ad\":{\"is_show\":1},\"douyin_doctype_goods.ecom_columns_goods\":{\"is_show\":1},\"ad_doctype_ad.image\":{\"is_show\":1},\"douyin_doctype_aweme_baike.baike_wiki_doc\":{\"is_show\":1},\"douyin_toutiao_chat_gpt.toutiao_chat_gpt\":{\"is_show\":1},\"douyin_lottery_all1.lottery_all1\":{\"is_show\":1},\"ad_doctype_ad.303\":{\"is_show\":1},\"douyin_image.image\":{\"is_show\":1},\"douyin_zuowen.zuowen\":{\"is_show\":1},\"douyin_toutiao_web.toutiao_web\":{\"is_show\":1},\"douyin_doctype_aweme_xiaohe_health_article.xiaohe_tuwen\":{\"is_show\":1},\"douyin_aft_hanzi_detail.aft_hanzi_detail\":{\"is_show\":1},\"douyin_doctype_aweme_live.aweme_live_lynx\":{\"is_show\":1},\"douyin_express.express\":{\"is_show\":1},\"ad_doctype_ad.business_search\":{\"is_show\":1},\"douyin_douyin_groupbuy_spu.lego_poi_groupbuy_text_card\":{\"is_show\":1},\"douyin_deepqa.deepqa\":{\"is_show\":1},\"douyin_translate.translate\":{\"is_show\":1},\"douyin_dict.dict\":{\"is_show\":1},\"douyin_doctype_aweme_image\":{\"is_show\":1},\"douyin_doctype_aweme_toutiao_site_article.toutiao_article\":{\"is_show\":1}},\"search_feed_divider_color_light\":\"#800E0F1A\",\"search_tab_config\":[{\"tab_type\":\"general\",\"tab_name\":\"综合\",\"feed_type\":1,\"extra\":{}},{\"tab_type\":\"video\",\"tab_name\":\"视频\",\"feed_type\":2,\"extra\":{}},{\"tab_type\":\"user\",\"tab_name\":\"用户\",\"feed_type\":3,\"extra\":{}},{\"tab_type\":\"goods\",\"tab_name\":\"商品\",\"feed_type\":8,\"extra\":{}},{\"tab_type\":\"live\",\"tab_name\":\"直播\",\"feed_type\":6,\"extra\":{}},{\"tab_type\":\"music\",\"tab_name\":\"音乐\",\"feed_type\":4,\"extra\":{}},{\"tab_type\":\"poi\",\"tab_name\":\"地点\",\"feed_type\":7,\"extra\":{}},{\"tab_type\":\"hashtag\",\"tab_name\":\"话题\",\"feed_type\":5,\"extra\":{}}],\"feedback_reason_config\":{\"feedback_reason\":{\"sug\":[\"内容表述错误\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"与搜索词无关\",\"其他\"],\"cr\":[\"与搜索词无关\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"相似/重复内容过多\",\"其他问题反馈\"],\"rs\":[\"与搜索词无关\",\"内容负面/不实\",\"隐私或侵权信息\",\"涉嫌违法/色情\",\"相似/重复内容过多\",\"其他问题反馈\"]}},\"search_feed_divider_height\":10,\"search_preload_templates\":[{\"channel\":\"morphling_high\",\"cardName\":\"related_search/index\"},{\"channel\":\"morphling_high\",\"cardName\":\"toutiao_web/index\"},{\"channel\":\"morphling_normal\",\"cardName\":\"aweme_live_lynx/index\"},{\"channel\":\"fe_lynx_main_v2_normal\",\"cardName\":\"vertical-normal-living-room\"},{\"channel\":\"fe_lynx_main_v2_normal\",\"cardName\":\"aweme_wenda\"},{\"channel\":\"morphling_high\",\"cardName\":\"douyin_chatgpt/index\"},{\"channel\":\"morphling_high\",\"cardName\":\"toutiao_article_v2/index\"}],\"feedback_questionnarie_config\":{\"feedback_config_keys\":{\"doc_type\":{\"3\":{\"questionnaire_config\":\"5\",\"desc\":\"广告卡\"},\"103\":{\"questionnaire_config\":\"6\",\"desc\":\"图片搜索\"},\"153\":{\"questionnaire_config\":\"3\",\"desc\":\"原生视频\"},\"303\":{\"questionnaire_config\":\"2\",\"desc\":\"原生图文\"}},\"ad\":{},\"aladdin\":{\"douyin_web_lightapp\":{\"questionnaire_config\":\"1\",\"desc\":\"web化轻应用\"},\"deepqa\":{\"questionnaire_config\":\"1\",\"desc\":\"图文精准问答 web类结果\"},\"douyin_weitoutiao\":{\"questionnaire_config\":\"1\",\"desc\":\"微头条\"},\"toutiao_web\":{\"questionnaire_config\":\"1\",\"desc\":\"web类结果\"},\"toutiao_article\":{\"questionnaire_config\":\"1\",\"desc\":\"web类结果\"}}},\"feedback_questionnaire_config\":{\"0\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"网页打不开\"},{\"text\":\"操作卡顿\"},{\"text\":\"样式/功能体验差\"},{\"text\":\"内容错误\"},{\"text\":\"资源过少\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"通用如意类结果，默认\"},\"1\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"网页打不开\"},{\"text\":\"内容错误\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"需要付费\"},{\"text\":\"弹窗遮挡内容\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"web类结果\"},\"2\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"低质模糊\"},{\"text\":\"内容老旧\"},{\"text\":\"错误/不详细\"},{\"text\":\"过度营销\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"原生图集结果\"},\"3\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"不满足需求\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"低质模糊\"},{\"text\":\"内容老旧\"},{\"text\":\"错误/不详细\"},{\"text\":\"过度营销\"},{\"text\":\"反馈其他问题\",\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"input\":1}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"内容反馈\"}],\"thankContent\":\"反馈成功，将为您优化搜索结果\"},\"desc\":\"原生视频结果\"},\"4\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"该作者\"},{\"text\":\"该类目\"},{\"text\":\"该应用\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/heart-borken.png\",\"title\":\"我不想看\"},{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容质量差\"},{\"text\":\"内容重复出现\"},{\"text\":\"广告过于密集\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"反馈内容问题\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"广告类结果，带下载\"},\"5\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"该作者\"},{\"text\":\"该类目\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/heart-borken.png\",\"title\":\"我不想看\"},{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容质量差\"},{\"text\":\"内容重复出现\"},{\"text\":\"广告过于密集\"}],\"multiple\":0,\"prefixIcon\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/nuvauhdbvn/feedback/unhappy.png\",\"title\":\"反馈内容问题\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"广告类结果，不带下载\"},\"6\":{\"extra\":{},\"data\":{\"questionnaireGroupedList\":[{\"items\":[{\"text\":\"与搜索词无关\"},{\"text\":\"内容负面/不实\"},{\"text\":\"隐私或侵权信息\"},{\"text\":\"涉嫌违法/色情\"},{\"text\":\"相似/重复内容过多\"},{\"text\":\"反馈其他问题 >\",\"input\":1}],\"multiple\":1,\"title\":\"不满意的原因（可多选）\"}],\"thankContent\":\"操作成功，将减少此类内容推荐\"},\"desc\":\"图片搜索卡片反馈\"}}},\"dynamic_config_search_transfer_main\":{\"settings\":{\"framework_upgrade_reactLynx3\":\"true\",\"search_transfer_theme_trial\":\"\",\"delay_render_less_important\":\"\",\"storage_use_ui_thread\":\"\",\"report_network_track\":\"\",\"local_billboard_opt\":\"\",\"calc_gs_text_render_info\":\"1\",\"pass_city_board_local_cache\":\"1\",\"vertical_intent_search_strategy\":0,\"video_sign_count\":\"\",\"is_aweme_clue_author\":\"1\",\"search_transfer_pin_gs\":\"\",\"record_suggest_debug_info\":0,\"guess_like\":\"{\\\"refresh_method\\\":5}\",\"gs_layout_opt\":\"\",\"gs_skeleton_opt\":\"1\",\"search_middle_guess_word_count\":8,\"keyboard_event_timing_update\":\"\",\"disable_guess_search_module\":\"\",\"history_module_new\":\"1\",\"rendering_adhesions\":\"\",\"close_personal_gs_refresh_opt\":\"1\",\"gs_track_attr_error_no_report\":\"\",\"enable_gray_theme\":\"\",\"history_default_display_num\":\"\",\"search_predict_enable\":1,\"st_hide_suggest_word\":\"\",\"history_handle_style\":\"doubleListTitleFoldAndDel\",\"history_perf_poor\":\"\",\"enabled_network_opt\":\"1\",\"poi_toast_enable_from_cache\":\"1\",\"module_title_color\":\"1\",\"gs_update_data_fail_not_report\":\"\",\"have_kangyi_tab\":\"\",\"have_experience_tab\":\"\",\"waiting_native_duration\":\"\",\"use_result_video_sign\":\"\",\"guess_search_poi_tag\":\"1\",\"ipad_new_style\":\"\",\"perf_deletion_supplement\":\"\",\"history_title_text\":\"\",\"seeding_reverse\":\"\",\"waiting_fe_fetch_duration\":\"\",\"expand_text_type\":\"\",\"pause_state_resume_timing\":\"\",\"verify_search_worth\":\"\",\"use_async_fetch_thread\":\"\",\"search_transfer_feed_prefetch_map\":\"null\",\"prefetch_first_render\":\"\",\"guess_after_search_style\":\"4\",\"personal_recommend_opt\":\"\",\"gs_data_optimize\":\"\",\"preload_billboard\":\"\",\"history_max_limit_display_number\":\"20\",\"is_sort_frequent_search\":\"\",\"search_transfer_city_board\":\"1\",\"transfer_performance_opt_v4\":\"\",\"use_log_provider\":\"1\",\"show_theme_billboard\":\"\",\"search_transfer_feed_prefetch_config\":\"null\",\"hr_gs_style_margin_reduce\":\"1\",\"search_transfer_exposure_opt\":\"\",\"state_pause_type\":\"\",\"search_predict_from\":\"recom_search,search_history,search_sug,default_search_keyword,normal_search,comment_named_entity_search,comment_related_search\",\"search_trending_package_simplify\":\"{\\\"sug_history_cnt\\\":3,\\\"sug_opt_url\\\":1,\\\"gs_history_cnt\\\":3}\",\"pad_history_record_style\":\"1\",\"close_personal_uid_0\":\"1\",\"enable_seeding\":\"1\",\"guess_search_perf_poor\":\"\",\"gs_track_attr_replace_error_scene\":\"\",\"transfer_use_async_bridge\":\"\",\"hr_gs_style_fontsize_reduce\":\"\",\"module_title_size\":\"md\",\"history_record_style\":\"\",\"search_transfer_use_container_ab_params\":\"\"}},\"search_feed_cooperate_channel\":{\"VivoBrowser\":{\"isWhiteList\":1},\"HeytapBrowser\":{\"isWhiteList\":1}},\"search_autoplay_static_blacklist\":[\"related_word\",\"live_user\",\"general_shop_live_shop\",\"dyhuodong_sport_star_player\",\"ecom_live_user\",\"ecom_user_attach_live\",\"ecom_shop_ad_shop\",\"ecom_user_ad_user\",\"douyin_gaokao_major_title_card\",\"douyin_college_title_card\",\"douyin_gaokao_toolbox\",\"douyin_gaokao_related_college\",\"douyin_gaokao_group_chat\",\"douyin_gk_major_category_header\",\"douyin_gaokao_major\",\"douyin_gaokao_major_info_aggr\",\"douyin_college_major_enrollment_aggr\",\"gaokao_schedule\",\"gaokao_score_line_aggr\"],\"search_feed_divider_color\":\"#800E0F1A\"},\"hash\":\"eyJlIjoiVVUyNFBHendFcm4yRmJvcFY0ZjZGUT09IiwidiI6ODIyNTQzN30=\"}"
         },
         {
           "name": "pre_webid_ts",
-          "value": "1780735192933"
+          "value": "1780737000766"
+        }
+      ]
+    },
+    {
+      "origin": "https://www.douyin.com",
+      "localStorage": [
+        {
+          "name": "__ac_referer",
+          "value": "__ac_blank"
         }
       ]
     }
