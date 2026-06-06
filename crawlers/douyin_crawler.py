@@ -1,5 +1,5 @@
 """
-抖音爬虫
+抖音爬虫 - 简化版，使用搜索结果页
 """
 import re
 from typing import List
@@ -16,53 +16,91 @@ class DouyinCrawler(BaseCrawler):
         self.platform_name = "抖音"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索抖音视频（使用移动端）"""
+        """搜索抖音视频"""
         results = []
         try:
-            # 使用移动端搜索，无需登录
-            search_url = f"https://www.douyin.com/search/{keyword}?type=video&source=normal_search"
+            search_url = f"https://www.douyin.com/search/{keyword}?type=video"
             await self.safe_goto(search_url)
+            await random_delay(5, 8)
+
+            # 等待页面加载
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
-            # 等待搜索结果加载
-            await self.page.wait_for_selector('[class*="search-result"]', timeout=15000)
+            # 尝试多种选择器
+            selectors = [
+                '[data-e2e="search-card-desc"]',
+                '.search-result-card',
+                '.video-card',
+                'li[class*="search"]',
+                'div[class*="video"]',
+            ]
 
-            for page_num in range(max_pages):
-                logger.info(f"抖音搜索 第{page_num + 1}页")
+            video_items = []
+            for selector in selectors:
+                try:
+                    video_items = await self.page.query_selector_all(selector)
+                    if video_items:
+                        logger.info(f"抖音: 使用选择器 {selector} 找到 {len(video_items)} 个结果")
+                        break
+                except:
+                    continue
 
-                # 获取视频列表
-                video_items = await self.page.query_selector_all('[class*="video-card"], [class*="search-result-card"]')
+            if not video_items:
+                # 尝试获取页面内容
+                content = await self.page.content()
+                logger.warning(f"抖音: 未找到视频列表，页面长度: {len(content)}")
+                return results
 
-                for item in video_items:
+            for item in video_items[:20]:  # 限制前20个
+                try:
+                    # 尝试获取标题
+                    title = ""
+                    for title_sel in ['a', 'span', 'div[class*="title"]', 'p']:
+                        try:
+                            el = await item.query_selector(title_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) > 5:
+                                    title = text[:100]
+                                    break
+                        except:
+                            continue
+
+                    # 尝试获取链接
+                    url = ""
                     try:
-                        # 提取标题
-                        title_el = await item.query_selector('[class*="title"], a')
-                        title = await title_el.inner_text() if title_el else ""
-
-                        # 提取链接
                         link_el = await item.query_selector('a[href*="/video/"]')
-                        url = await link_el.get_attribute("href") if link_el else ""
-                        if url and not url.startswith("http"):
-                            url = "https://www.douyin.com" + url
+                        if link_el:
+                            url = await link_el.get_attribute("href")
+                            if url and not url.startswith("http"):
+                                url = "https://www.douyin.com" + url
+                    except:
+                        pass
 
-                        # 提取作者
-                        author_el = await item.query_selector('[class*="author"], [class*="nickname"]')
-                        author = await author_el.inner_text() if author_el else ""
+                    # 尝试获取作者
+                    author = ""
+                    for author_sel in ['[class*="author"]', '[class*="nickname"]', 'span']:
+                        try:
+                            el = await item.query_selector(author_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) < 20:
+                                    author = text
+                                    break
+                        except:
+                            continue
 
-                        if title and url:
-                            results.append({
-                                "title": clean_text(title),
-                                "url": url,
-                                "author": clean_text(author),
-                                "platform": "抖音",
-                            })
-                    except Exception as e:
-                        logger.debug(f"解析视频项失败: {e}")
-                        continue
-
-                # 滚动加载下一页
-                await self.scroll_and_load(3)
-                await random_delay(2, 4)
+                    if title:
+                        results.append({
+                            "title": clean_text(title),
+                            "url": url or search_url,
+                            "author": clean_text(author),
+                            "platform": "抖音",
+                        })
+                except Exception as e:
+                    logger.debug(f"解析抖音项失败: {e}")
+                    continue
 
         except Exception as e:
             logger.error(f"抖音搜索失败: {e}")
@@ -75,65 +113,103 @@ class DouyinCrawler(BaseCrawler):
         comments = []
         try:
             await self.safe_goto(url)
+            await random_delay(5, 8)
+
+            # 等待页面加载
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
             # 获取视频标题
             title = ""
             try:
-                title_el = await self.page.query_selector('[class*="title"], h1')
-                title = await title_el.inner_text() if title_el else ""
+                for sel in ['h1', '[class*="title"]', 'meta[name="description"]']:
+                    try:
+                        if sel.startswith('meta'):
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.get_attribute("content") or ""
+                        else:
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.inner_text()
+                        if title:
+                            break
+                    except:
+                        continue
             except:
                 pass
 
-            # 等待评论区加载
-            await self.page.wait_for_selector('[class*="comment"], [class*="Comment"]', timeout=15000)
+            # 滚动到评论区
+            for _ in range(5):
+                await self.page.evaluate("window.scrollBy(0, 500)")
+                await random_delay(1, 2)
 
-            # 滚动加载评论
-            for scroll_round in range(10):
-                await self.scroll_and_load(2)
-                await random_delay(1, 3)
+            # 尝试多种评论选择器
+            comment_selectors = [
+                '[data-e2e="comment-list"]',
+                '[class*="comment"]',
+                '[class*="Comment"]',
+                'div[class*="comment-item"]',
+            ]
 
-                # 检查是否达到最大评论数
-                comment_elements = await self.page.query_selector_all('[class*="comment-item"], [class*="CommentItem"]')
-                if len(comment_elements) >= max_count:
-                    break
-
-            # 解析评论
-            comment_elements = await self.page.query_selector_all('[class*="comment-item"], [class*="CommentItem"]')
-
-            for i, el in enumerate(comment_elements[:max_count]):
+            comment_elements = []
+            for selector in comment_selectors:
                 try:
-                    # 评论内容
-                    content_el = await el.query_selector('[class*="content"], [class*="text"], p')
-                    content = await content_el.inner_text() if content_el else ""
+                    comment_elements = await self.page.query_selector_all(selector)
+                    if comment_elements:
+                        logger.info(f"抖音评论: 使用选择器 {selector} 找到 {len(comment_elements)} 条")
+                        break
+                except:
+                    continue
 
-                    # 评论作者
-                    author_el = await el.query_selector('[class*="author"], [class*="nickname"], [class*="name"]')
-                    author = await author_el.inner_text() if author_el else ""
+            for el in comment_elements[:max_count]:
+                try:
+                    # 获取评论内容
+                    content = ""
+                    for content_sel in ['[class*="content"]', '[class*="text"]', 'p', 'span']:
+                        try:
+                            content_el = await el.query_selector(content_sel)
+                            if content_el:
+                                content = await content_el.inner_text()
+                                if content and len(content) > 2:
+                                    break
+                        except:
+                            continue
 
-                    # 点赞数
-                    likes_el = await el.query_selector('[class*="like"], [class*="digg"]')
-                    likes_text = await likes_el.inner_text() if likes_el else "0"
-                    likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
+                    # 获取作者
+                    author = ""
+                    for author_sel in ['[class*="author"]', '[class*="name"]', 'a']:
+                        try:
+                            author_el = await el.query_selector(author_sel)
+                            if author_el:
+                                author = await author_el.inner_text()
+                                if author and len(author) < 20:
+                                    break
+                        except:
+                            continue
 
-                    # 时间
-                    time_el = await el.query_selector('[class*="time"], [class*="date"]')
-                    time_str = await time_el.inner_text() if time_el else ""
+                    # 获取点赞数
+                    likes = 0
+                    try:
+                        likes_el = await el.query_selector('[class*="like"], [class*="digg"]')
+                        if likes_el:
+                            likes_text = await likes_el.inner_text()
+                            likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
+                    except:
+                        pass
 
                     if content:
-                        comment = CommentData(
+                        comments.append(CommentData(
                             platform="抖音",
                             title=clean_text(title),
                             content=clean_text(content),
                             author=clean_text(author),
-                            time=format_time(time_str),
+                            time="",
                             url=url,
                             likes=likes,
-                        )
-                        comments.append(comment)
-
+                        ))
                 except Exception as e:
-                    logger.debug(f"解析评论失败: {e}")
+                    logger.debug(f"解析抖音评论失败: {e}")
                     continue
 
         except Exception as e:

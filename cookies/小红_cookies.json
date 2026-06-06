@@ -41,16 +41,6 @@
       "sameSite": "Lax"
     },
     {
-      "name": "xsecappid",
-      "value": "xhs-pc-web",
-      "domain": ".xiaohongshu.com",
-      "path": "/",
-      "expires": 1812270104,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "a1",
       "value": "19e9c017332s3grppc7cdqg9etavqwog3n8zvkyov30000860025",
       "domain": ".xiaohongshu.com",
@@ -76,16 +66,6 @@
       "domain": ".xiaohongshu.com",
       "path": "/",
       "expires": 1780993001,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "sec_poison_id",
-      "value": "05ada976-1e29-4cee-bb0e-c15eff74f59e",
-      "domain": ".xiaohongshu.com",
-      "path": "/",
-      "expires": 1780734406,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -121,11 +101,21 @@
       "sameSite": "Lax"
     },
     {
-      "name": "loadts",
-      "value": "1780734104245",
+      "name": "xsecappid",
+      "value": "yamcha",
       "domain": ".xiaohongshu.com",
       "path": "/",
-      "expires": 1812270104,
+      "expires": 1812271216,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "loadts",
+      "value": "1780735216428",
+      "domain": ".xiaohongshu.com",
+      "path": "/",
+      "expires": 1812271216,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -137,15 +127,7 @@
       "localStorage": [
         {
           "name": "unloads_record",
-          "value": "[[1780734099908.6,4876]]"
-        },
-        {
-          "name": "XHS_STRATEGY_BOX",
-          "value": "{\"firstVisit-\":false}"
-        },
-        {
-          "name": "sdt_source_storage_key",
-          "value": "{\"url\":\"https://fe-static.xhscdn.com/as/v2/fp/643f48183a62c46e6c924b3f0456767a.js\",\"reportUrl\":\"/api/sec/v1/shield/webprofile\",\"validate\":true,\"commonPatch\":[\"/fe_api/burdock/v2/note/post\",\"/api/sns/web/v1/comment/post\",\"/api/sns/web/v1/note/like\",\"/api/sns/web/v1/note/collect\",\"/api/sns/web/v1/user/follow\",\"/api/sns/web/v1/feed\",\"/api/sns/web/v1/login/activate\",\"/api/sns/web/v1/note/metrics_report\",\"/api/redcaptcha\",\"/api/store/jpd/main\",\"/phoenix/api/strategy/getAppStrategy\",\"/web_api/sns/v2/note\"],\"xhsTokenUrl\":\"https://fe-static.xhscdn.com/as/v1/3e44/public/bf7d4e32677698655a5cadc581fd09b3.js\",\"desVersion\":\"2\",\"signUrl\":\"https://fe-static.xhscdn.com/as/v1/f218/a15/public/04b29480233f4def5c875875b6bdc3b1.js\",\"signVersion\":\"1\",\"extraInfo\":{\"dsUrl\":\"https://fe-static.xhscdn.com/as/v2/ds/6545c70e73d7e06896b3c574a70b5438.js\",\"kbconf\":null,\"fpMatchUrls\":null}}"
+          "value": "[[1780735214193.9,3141]]"
         }
       ]
     }

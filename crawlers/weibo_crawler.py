@@ -1,5 +1,5 @@
 """
-微博爬虫
+微博爬虫 - 简化版
 """
 import re
 from typing import List
@@ -16,60 +16,87 @@ class WeiboCrawler(BaseCrawler):
         self.platform_name = "微博"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索微博（使用移动端）"""
+        """搜索微博"""
         results = []
         try:
-            # 使用移动端搜索
-            search_url = f"https://m.weibo.cn/search?containerid=100103type%3D1%26q%3D{keyword}"
+            search_url = f"https://s.weibo.com/weibo?q={keyword}"
             await self.safe_goto(search_url)
+            await random_delay(5, 8)
+
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
-            # 等待搜索结果加载
-            await self.page.wait_for_selector('.card-wrap, .card', timeout=15000)
+            selectors = [
+                '.card-wrap',
+                '.card',
+                'div[class*="weibo"]',
+                'div[class*="item"]',
+            ]
 
-            for page_num in range(max_pages):
-                logger.info(f"微博搜索 第{page_num + 1}页")
+            weibo_items = []
+            for selector in selectors:
+                try:
+                    weibo_items = await self.page.query_selector_all(selector)
+                    if weibo_items:
+                        logger.info(f"微博: 使用选择器 {selector} 找到 {len(weibo_items)} 个结果")
+                        break
+                except:
+                    continue
 
-                # 获取微博列表
-                weibo_items = await self.page.query_selector_all('.card-wrap:not([mid=""]), .card[action-type="feed_list_item"]')
+            if not weibo_items:
+                content = await self.page.content()
+                logger.warning(f"微博: 未找到微博列表，页面长度: {len(content)}")
+                return results
 
-                for item in weibo_items:
+            for item in weibo_items[:20]:
+                try:
+                    # 微博内容作为标题
+                    content_text = ""
+                    for content_sel in ['.txt', '[class*="text"]', 'p']:
+                        try:
+                            el = await item.query_selector(content_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) > 10:
+                                    content_text = text[:100]
+                                    break
+                        except:
+                            continue
+
+                    title = content_text[:50] + "..." if len(content_text) > 50 else content_text
+
+                    url = ""
                     try:
-                        # 提取内容（微博没有单独标题，用内容前50字作为标题）
-                        content_el = await item.query_selector('.txt, .weibo-text')
-                        content = await content_el.inner_text() if content_el else ""
-                        title = content[:50] + "..." if len(content) > 50 else content
+                        link_el = await item.query_selector('a[href*="/detail/"], a[href*="/status/"]')
+                        if link_el:
+                            url = await link_el.get_attribute("href")
+                            if url and not url.startswith("http"):
+                                url = "https://weibo.com" + url
+                    except:
+                        pass
 
-                        # 提取链接
-                        link_el = await item.query_selector('a[href*="/detail/"], .card-act a:first-child')
-                        url = await link_el.get_attribute("href") if link_el else ""
-                        if url and not url.startswith("http"):
-                            url = "https://weibo.com" + url
+                    author = ""
+                    for author_sel in ['.name', '[class*="name"]', 'a']:
+                        try:
+                            el = await item.query_selector(author_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) < 20:
+                                    author = text
+                                    break
+                        except:
+                            continue
 
-                        # 提取作者
-                        author_el = await item.query_selector('.name, .card-name')
-                        author = await author_el.inner_text() if author_el else ""
-
-                        if content and url:
-                            results.append({
-                                "title": clean_text(title),
-                                "url": url,
-                                "author": clean_text(author),
-                                "platform": "微博",
-                            })
-                    except Exception as e:
-                        logger.debug(f"解析微博项失败: {e}")
-                        continue
-
-                # 滚动加载下一页
-                await self.scroll_and_load(3)
-                await random_delay(2, 4)
-
-                # 点击下一页
-                next_btn = await self.page.query_selector('.page.next, a:has-text("下一页")')
-                if next_btn:
-                    await next_btn.click()
-                    await random_delay(2, 3)
+                    if content_text:
+                        results.append({
+                            "title": clean_text(title),
+                            "url": url or search_url,
+                            "author": clean_text(author),
+                            "platform": "微博",
+                        })
+                except Exception as e:
+                    logger.debug(f"解析微博项失败: {e}")
+                    continue
 
         except Exception as e:
             logger.error(f"微博搜索失败: {e}")
@@ -82,69 +109,96 @@ class WeiboCrawler(BaseCrawler):
         comments = []
         try:
             await self.safe_goto(url)
+            await random_delay(5, 8)
+
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
-            # 获取微博内容作为标题
             title = ""
             try:
-                content_el = await self.page.query_selector('.txt, .weibo-text')
-                content = await content_el.inner_text() if content_el else ""
-                title = content[:50] + "..." if len(content) > 50 else content
+                for sel in ['.txt', '[class*="text"]', 'meta[name="description"]']:
+                    try:
+                        if sel.startswith('meta'):
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.get_attribute("content") or ""
+                        else:
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.inner_text()
+                        if title:
+                            title = title[:50]
+                            break
+                    except:
+                        continue
             except:
                 pass
 
-            # 滚动到评论区
-            await self.page.evaluate("window.scrollTo(0, document.body.scrollHeight * 0.6)")
-            await random_delay(2, 3)
+            for _ in range(5):
+                await self.page.evaluate("window.scrollBy(0, 500)")
+                await random_delay(1, 2)
 
-            # 等待评论区加载
-            await self.page.wait_for_selector('.comment-list, .comment-content', timeout=15000)
+            comment_selectors = [
+                '.comment-item',
+                '[class*="comment"]',
+                'div[class*="Comment"]',
+            ]
 
-            # 滚动加载评论
-            for scroll_round in range(10):
-                await self.scroll_and_load(2)
-                await random_delay(1, 3)
-
-                comment_elements = await self.page.query_selector_all('.comment-item, .comment-content')
-                if len(comment_elements) >= max_count:
-                    break
-
-            # 解析评论
-            comment_elements = await self.page.query_selector_all('.comment-item, .comment-content')
+            comment_elements = []
+            for selector in comment_selectors:
+                try:
+                    comment_elements = await self.page.query_selector_all(selector)
+                    if comment_elements:
+                        logger.info(f"微博评论: 使用选择器 {selector} 找到 {len(comment_elements)} 条")
+                        break
+                except:
+                    continue
 
             for el in comment_elements[:max_count]:
                 try:
-                    # 评论内容
-                    content_el = await el.query_selector('.txt, .comment-text')
-                    content = await content_el.inner_text() if content_el else ""
+                    content = ""
+                    for content_sel in ['.txt', '[class*="text"]', 'p', 'span']:
+                        try:
+                            content_el = await el.query_selector(content_sel)
+                            if content_el:
+                                content = await content_el.inner_text()
+                                if content and len(content) > 2:
+                                    break
+                        except:
+                            continue
 
-                    # 评论作者
-                    author_el = await el.query_selector('.name, .comment-name')
-                    author = await author_el.inner_text() if author_el else ""
+                    author = ""
+                    for author_sel in ['.name', '[class*="name"]', 'a']:
+                        try:
+                            author_el = await el.query_selector(author_sel)
+                            if author_el:
+                                author = await author_el.inner_text()
+                                if author and len(author) < 20:
+                                    break
+                        except:
+                            continue
 
-                    # 点赞数
-                    likes_el = await el.query_selector('.like-count, .comment-like')
-                    likes_text = await likes_el.inner_text() if likes_el else "0"
-                    likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
-
-                    # 时间
-                    time_el = await el.query_selector('.time, .comment-time')
-                    time_str = await time_el.inner_text() if time_el else ""
+                    likes = 0
+                    try:
+                        likes_el = await el.query_selector('[class*="like"]')
+                        if likes_el:
+                            likes_text = await likes_el.inner_text()
+                            likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
+                    except:
+                        pass
 
                     if content:
-                        comment = CommentData(
+                        comments.append(CommentData(
                             platform="微博",
                             title=clean_text(title),
                             content=clean_text(content),
                             author=clean_text(author),
-                            time=format_time(time_str),
+                            time="",
                             url=url,
                             likes=likes,
-                        )
-                        comments.append(comment)
-
+                        ))
                 except Exception as e:
-                    logger.debug(f"解析评论失败: {e}")
+                    logger.debug(f"解析微博评论失败: {e}")
                     continue
 
         except Exception as e:

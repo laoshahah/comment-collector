@@ -1,5 +1,5 @@
 """
-小红书爬虫
+小红书爬虫 - 简化版
 """
 import re
 from typing import List
@@ -16,53 +16,89 @@ class XiaohongshuCrawler(BaseCrawler):
         self.platform_name = "小红书"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索小红书笔记（使用移动端）"""
+        """搜索小红书笔记"""
         results = []
         try:
-            # 使用移动端搜索
-            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_search_result_notes&type=51"
+            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_search_result_notes"
             await self.safe_goto(search_url)
+            await random_delay(5, 8)
+
+            # 等待页面加载
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
-            # 等待搜索结果加载
-            await self.page.wait_for_selector('[class*="note-item"], [class*="search-result"]', timeout=15000)
+            # 尝试多种选择器
+            selectors = [
+                '[class*="note-item"]',
+                '[class*="search-result"]',
+                'section[class*="note"]',
+                'div[class*="card"]',
+            ]
 
-            for page_num in range(max_pages):
-                logger.info(f"小红书搜索 第{page_num + 1}页")
+            note_items = []
+            for selector in selectors:
+                try:
+                    note_items = await self.page.query_selector_all(selector)
+                    if note_items:
+                        logger.info(f"小红书: 使用选择器 {selector} 找到 {len(note_items)} 个结果")
+                        break
+                except:
+                    continue
 
-                # 获取笔记列表
-                note_items = await self.page.query_selector_all('[class*="note-item"], [class*="NoteItem"]')
+            if not note_items:
+                content = await self.page.content()
+                logger.warning(f"小红书: 未找到笔记列表，页面长度: {len(content)}")
+                return results
 
-                for item in note_items:
+            for item in note_items[:20]:
+                try:
+                    # 获取标题
+                    title = ""
+                    for title_sel in ['a', 'span', 'div[class*="title"]', 'p']:
+                        try:
+                            el = await item.query_selector(title_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) > 5:
+                                    title = text[:100]
+                                    break
+                        except:
+                            continue
+
+                    # 获取链接
+                    url = ""
                     try:
-                        # 提取标题
-                        title_el = await item.query_selector('[class*="title"], a span, .note-title')
-                        title = await title_el.inner_text() if title_el else ""
+                        link_el = await item.query_selector('a[href*="/explore/"], a[href*="/discovery/"]')
+                        if link_el:
+                            url = await link_el.get_attribute("href")
+                            if url and not url.startswith("http"):
+                                url = "https://www.xiaohongshu.com" + url
+                    except:
+                        pass
 
-                        # 提取链接
-                        link_el = await item.query_selector('a[href*="/explore/"], a[href*="/discovery/item/"]')
-                        url = await link_el.get_attribute("href") if link_el else ""
-                        if url and not url.startswith("http"):
-                            url = "https://www.xiaohongshu.com" + url
+                    # 获取作者
+                    author = ""
+                    for author_sel in ['[class*="author"]', '[class*="nickname"]', 'span']:
+                        try:
+                            el = await item.query_selector(author_sel)
+                            if el:
+                                text = await el.inner_text()
+                                if text and len(text) < 20:
+                                    author = text
+                                    break
+                        except:
+                            continue
 
-                        # 提取作者
-                        author_el = await item.query_selector('[class*="author"], [class*="nickname"], .author-name')
-                        author = await author_el.inner_text() if author_el else ""
-
-                        if title and url:
-                            results.append({
-                                "title": clean_text(title),
-                                "url": url,
-                                "author": clean_text(author),
-                                "platform": "小红书",
-                            })
-                    except Exception as e:
-                        logger.debug(f"解析笔记项失败: {e}")
-                        continue
-
-                # 滚动加载下一页
-                await self.scroll_and_load(3)
-                await random_delay(2, 4)
+                    if title:
+                        results.append({
+                            "title": clean_text(title),
+                            "url": url or search_url,
+                            "author": clean_text(author),
+                            "platform": "小红书",
+                        })
+                except Exception as e:
+                    logger.debug(f"解析小红书项失败: {e}")
+                    continue
 
         except Exception as e:
             logger.error(f"小红书搜索失败: {e}")
@@ -75,64 +111,99 @@ class XiaohongshuCrawler(BaseCrawler):
         comments = []
         try:
             await self.safe_goto(url)
+            await random_delay(5, 8)
+
+            await self.page.wait_for_load_state("networkidle", timeout=30000)
             await random_delay(3, 5)
 
-            # 获取笔记标题
+            # 获取标题
             title = ""
             try:
-                title_el = await self.page.query_selector('[class*="title"], h1, .note-title')
-                title = await title_el.inner_text() if title_el else ""
+                for sel in ['h1', '[class*="title"]', 'meta[name="description"]']:
+                    try:
+                        if sel.startswith('meta'):
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.get_attribute("content") or ""
+                        else:
+                            el = await self.page.query_selector(sel)
+                            if el:
+                                title = await el.inner_text()
+                        if title:
+                            break
+                    except:
+                        continue
             except:
                 pass
 
-            # 等待评论区加载
-            await self.page.wait_for_selector('[class*="comment"], [class*="Comment"]', timeout=15000)
+            # 滚动到评论区
+            for _ in range(5):
+                await self.page.evaluate("window.scrollBy(0, 500)")
+                await random_delay(1, 2)
 
-            # 滚动加载评论
-            for scroll_round in range(10):
-                await self.scroll_and_load(2)
-                await random_delay(1, 3)
+            # 尝试多种评论选择器
+            comment_selectors = [
+                '[class*="comment-item"]',
+                '[class*="CommentItem"]',
+                '[class*="comment-inner"]',
+                'div[class*="comment"]',
+            ]
 
-                comment_elements = await self.page.query_selector_all('[class*="comment-item"], [class*="CommentItem"], [class*="comment-inner"]')
-                if len(comment_elements) >= max_count:
-                    break
-
-            # 解析评论
-            comment_elements = await self.page.query_selector_all('[class*="comment-item"], [class*="CommentItem"], [class*="comment-inner"]')
+            comment_elements = []
+            for selector in comment_selectors:
+                try:
+                    comment_elements = await self.page.query_selector_all(selector)
+                    if comment_elements:
+                        logger.info(f"小红书评论: 使用选择器 {selector} 找到 {len(comment_elements)} 条")
+                        break
+                except:
+                    continue
 
             for el in comment_elements[:max_count]:
                 try:
-                    # 评论内容
-                    content_el = await el.query_selector('[class*="content"], [class*="text"], .note-text')
-                    content = await content_el.inner_text() if content_el else ""
+                    content = ""
+                    for content_sel in ['[class*="content"]', '[class*="text"]', 'p', 'span']:
+                        try:
+                            content_el = await el.query_selector(content_sel)
+                            if content_el:
+                                content = await content_el.inner_text()
+                                if content and len(content) > 2:
+                                    break
+                        except:
+                            continue
 
-                    # 评论作者
-                    author_el = await el.query_selector('[class*="author"], [class*="nickname"], [class*="name"], .author-name')
-                    author = await author_el.inner_text() if author_el else ""
+                    author = ""
+                    for author_sel in ['[class*="author"]', '[class*="name"]', 'a']:
+                        try:
+                            author_el = await el.query_selector(author_sel)
+                            if author_el:
+                                author = await author_el.inner_text()
+                                if author and len(author) < 20:
+                                    break
+                        except:
+                            continue
 
-                    # 点赞数
-                    likes_el = await el.query_selector('[class*="like"], [class*="digg"]')
-                    likes_text = await likes_el.inner_text() if likes_el else "0"
-                    likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
-
-                    # 时间
-                    time_el = await el.query_selector('[class*="time"], [class*="date"]')
-                    time_str = await time_el.inner_text() if time_el else ""
+                    likes = 0
+                    try:
+                        likes_el = await el.query_selector('[class*="like"], [class*="digg"]')
+                        if likes_el:
+                            likes_text = await likes_el.inner_text()
+                            likes = int(re.sub(r'[^\d]', '', likes_text) or "0")
+                    except:
+                        pass
 
                     if content:
-                        comment = CommentData(
+                        comments.append(CommentData(
                             platform="小红书",
                             title=clean_text(title),
                             content=clean_text(content),
                             author=clean_text(author),
-                            time=format_time(time_str),
+                            time="",
                             url=url,
                             likes=likes,
-                        )
-                        comments.append(comment)
-
+                        ))
                 except Exception as e:
-                    logger.debug(f"解析评论失败: {e}")
+                    logger.debug(f"解析小红书评论失败: {e}")
                     continue
 
         except Exception as e:
