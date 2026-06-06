@@ -63,17 +63,28 @@ class BaseCrawler(ABC):
         """初始化浏览器"""
         from crawlers.anti_detect import AntiDetect
         from config import CRAWLER_CONFIG
+        from storage.cookie_manager import CookieManager
 
         self.browser = await playwright.chromium.launch(
             headless=CRAWLER_CONFIG["headless"]
         )
         self.context = await AntiDetect.setup_browser_context(self.browser)
+
+        # 尝试加载保存的 Cookie
+        platform_key = self.platform_name.lower().replace("站", "").replace("书", "")
+        await CookieManager.apply_cookies(self.context, platform_key)
+
         self.page = await self.context.new_page()
         logger.info(f"{self.platform_name} 浏览器初始化完成")
 
     async def close(self):
         """关闭浏览器"""
+        from storage.cookie_manager import CookieManager
+
+        # 保存 Cookie
         if self.context:
+            platform_key = self.platform_name.lower().replace("站", "").replace("书", "")
+            await CookieManager.save_cookies(self.context, platform_key)
             await self.context.close()
         if self.browser:
             await self.browser.close()

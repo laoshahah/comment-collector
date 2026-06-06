@@ -15,12 +15,14 @@ from gui.search_panel import SearchPanel
 from gui.result_table import ResultTable
 from gui.task_panel import TaskPanel
 from gui.dashboard_tab import DashboardTab
+from gui.schedule_panel import SchedulePanel
 from gui.settings_dialog import SettingsDialog
 from gui.update_dialog import UpdateDialog
 from gui.styles import STYLESHEET
 from config import __version__
 from storage.database import Database
 from storage.exporter import Exporter
+from utils.scheduler import TaskScheduler
 from utils.logger import logger
 
 
@@ -53,6 +55,9 @@ class CrawlerThread(QThread):
         from crawlers.douyin_crawler import DouyinCrawler
         from crawlers.xiaohongshu_crawler import XiaohongshuCrawler
         from crawlers.kuaishou_crawler import KuaishouCrawler
+        from crawlers.bilibili_crawler import BilibiliCrawler
+        from crawlers.weibo_crawler import WeiboCrawler
+        from crawlers.zhihu_crawler import ZhihuCrawler
         from parsers.comment_parser import CommentParser
         from parsers.info_extractor import InfoExtractor
 
@@ -69,6 +74,9 @@ class CrawlerThread(QThread):
             "douyin": DouyinCrawler,
             "xiaohongshu": XiaohongshuCrawler,
             "kuaishou": KuaishouCrawler,
+            "bilibili": BilibiliCrawler,
+            "weibo": WeiboCrawler,
+            "zhihu": ZhihuCrawler,
         }
 
         async with async_playwright() as p:
@@ -84,6 +92,9 @@ class CrawlerThread(QThread):
                     "douyin": "抖音",
                     "xiaohongshu": "小红书",
                     "kuaishou": "快手",
+                    "bilibili": "B站",
+                    "weibo": "微博",
+                    "zhihu": "知乎",
                 }.get(platform_key, platform_key)
 
                 self.progress.emit(idx, total_platforms, f"正在爬取 {platform_name}...")
@@ -150,10 +161,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.db = Database()
+        self.scheduler = TaskScheduler()
         self.crawler_thread = None
         self.current_task_id = None
         self.init_ui()
         self.load_history_data()
+        # 启动定时任务调度器
+        self.scheduler.start(self.on_scheduled_task)
 
     def init_ui(self):
         """初始化界面"""
@@ -198,6 +212,10 @@ class MainWindow(QMainWindow):
         # 仪表盘标签页
         self.dashboard_tab = DashboardTab(self.db)
         self.tab_widget.addTab(self.dashboard_tab, "数据仪表盘")
+
+        # 定时任务标签页
+        self.schedule_panel = SchedulePanel(self.scheduler)
+        self.tab_widget.addTab(self.schedule_panel, "定时任务")
 
         main_layout.addWidget(self.tab_widget)
 
@@ -363,6 +381,18 @@ class MainWindow(QMainWindow):
         # TODO: 实现批量URL爬取逻辑
         # 可以创建一个新的爬虫线程来处理这些URL
 
+    def on_scheduled_task(self, task):
+        """定时任务执行回调"""
+        logger.info(f"执行定时任务: {task.keyword}")
+        # 在主线程中启动爬取
+        params = {
+            "keyword": task.keyword,
+            "platforms": task.platforms,
+            "max_pages": 5,
+            "max_comments": 50,
+        }
+        self.start_crawl(params)
+
     def show_settings(self):
         """显示设置对话框"""
         dialog = SettingsDialog(self)
@@ -408,6 +438,9 @@ class MainWindow(QMainWindow):
 
             self.crawler_thread.stop()
             self.crawler_thread.wait()
+
+        # 停止定时任务调度器
+        self.scheduler.stop()
 
         self.db.close()
         event.accept()

@@ -68,17 +68,17 @@ PLATFORMS = {
     "bilibili": {
         "name": "B站",
         "search_url": "https://search.bilibili.com/all?keyword={keyword}",
-        "enabled": False,
+        "enabled": True,
     },
     "weibo": {
         "name": "微博",
         "search_url": "https://s.weibo.com/weibo?q={keyword}",
-        "enabled": False,
+        "enabled": True,
     },
     "zhihu": {
         "name": "知乎",
         "search_url": "https://www.zhihu.com/search?type=content&q={keyword}",
-        "enabled": False,
+        "enabled": True,
     },
 }
 

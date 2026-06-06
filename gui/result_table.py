@@ -56,7 +56,7 @@ class ResultTable(QWidget):
 
         toolbar_layout.addWidget(QLabel("平台:"))
         self.platform_filter = QComboBox()
-        self.platform_filter.addItems(["全部", "抖音", "小红书", "快手"])
+        self.platform_filter.addItems(["全部", "抖音", "小红书", "快手", "B站", "微博", "知乎"])
         self.platform_filter.currentTextChanged.connect(self.apply_filter)
         toolbar_layout.addWidget(self.platform_filter)
 
