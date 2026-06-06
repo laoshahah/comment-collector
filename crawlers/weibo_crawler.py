@@ -16,10 +16,11 @@ class WeiboCrawler(BaseCrawler):
         self.platform_name = "微博"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索微博"""
+        """搜索微博（使用移动端）"""
         results = []
         try:
-            search_url = f"https://s.weibo.com/weibo?q={keyword}"
+            # 使用移动端搜索
+            search_url = f"https://m.weibo.cn/search?containerid=100103type%3D1%26q%3D{keyword}"
             await self.safe_goto(search_url)
             await random_delay(3, 5)
 

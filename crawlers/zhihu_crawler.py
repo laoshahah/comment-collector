@@ -16,9 +16,10 @@ class ZhihuCrawler(BaseCrawler):
         self.platform_name = "知乎"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索知乎"""
+        """搜索知乎（使用移动端）"""
         results = []
         try:
+            # 使用移动端搜索
             search_url = f"https://www.zhihu.com/search?type=content&q={keyword}"
             await self.safe_goto(search_url)
             await random_delay(3, 5)

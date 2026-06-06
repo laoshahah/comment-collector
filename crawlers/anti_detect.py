@@ -10,17 +10,22 @@ class AntiDetect:
 
     @staticmethod
     def get_random_ua() -> str:
-        """获取随机 User-Agent"""
-        return random.choice(USER_AGENTS)
+        """获取随机 User-Agent（优先使用移动端）"""
+        mobile_uas = [
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+            "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/120.0.6099.119 Mobile/15E148 Safari/604.1",
+        ]
+        return random.choice(mobile_uas)
 
     @staticmethod
     def get_viewport() -> dict:
-        """获取随机视口大小"""
+        """获取随机视口大小（移动端）"""
         viewports = [
-            {"width": 1920, "height": 1080},
-            {"width": 1366, "height": 768},
-            {"width": 1440, "height": 900},
-            {"width": 1536, "height": 864},
+            {"width": 390, "height": 844},  # iPhone 14
+            {"width": 393, "height": 852},  # iPhone 15
+            {"width": 412, "height": 915},  # Pixel 7
+            {"width": 360, "height": 800},  # 常见安卓
         ]
         return random.choice(viewports)
 

@@ -16,10 +16,11 @@ class DouyinCrawler(BaseCrawler):
         self.platform_name = "抖音"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索抖音视频"""
+        """搜索抖音视频（使用移动端）"""
         results = []
         try:
-            search_url = f"https://www.douyin.com/search/{keyword}?type=video"
+            # 使用移动端搜索，无需登录
+            search_url = f"https://www.douyin.com/search/{keyword}?type=video&source=normal_search"
             await self.safe_goto(search_url)
             await random_delay(3, 5)
 

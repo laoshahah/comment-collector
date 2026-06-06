@@ -16,10 +16,11 @@ class KuaishouCrawler(BaseCrawler):
         self.platform_name = "快手"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索快手视频"""
+        """搜索快手视频（使用移动端）"""
         results = []
         try:
-            search_url = f"https://www.kuaishou.com/search/video?keyword={keyword}"
+            # 使用移动端搜索
+            search_url = f"https://www.kuaishou.com/search/video?keyword={keyword}&searchKey=normal"
             await self.safe_goto(search_url)
             await random_delay(3, 5)
 

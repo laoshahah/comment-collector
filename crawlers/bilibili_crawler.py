@@ -16,10 +16,11 @@ class BilibiliCrawler(BaseCrawler):
         self.platform_name = "B站"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索B站视频"""
+        """搜索B站视频（使用移动端）"""
         results = []
         try:
-            search_url = f"https://search.bilibili.com/all?keyword={keyword}"
+            # 使用移动端搜索
+            search_url = f"https://m.bilibili.com/search?keyword={keyword}"
             await self.safe_goto(search_url)
             await random_delay(3, 5)
 

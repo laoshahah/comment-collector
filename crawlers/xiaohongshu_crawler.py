@@ -16,10 +16,11 @@ class XiaohongshuCrawler(BaseCrawler):
         self.platform_name = "小红书"
 
     async def search(self, keyword: str, max_pages: int = 5) -> List[dict]:
-        """搜索小红书笔记"""
+        """搜索小红书笔记（使用移动端）"""
         results = []
         try:
-            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_search_result_notes"
+            # 使用移动端搜索
+            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_search_result_notes&type=51"
             await self.safe_goto(search_url)
             await random_delay(3, 5)
 
